@@ -148,8 +148,7 @@
   .join .copy { display: grid; gap: 14px; }
   .join ul { margin: 0; padding-left: 20px; color: #D7E6E1; display: grid; gap: 4px; }
   .qr { background: var(--white); border-radius: var(--radius); padding: 18px; display: grid; gap: 10px; justify-items: center; width: 230px; max-width: 100%; }
-  .qr .code { width: 170px; height: 170px; max-width: 100%; display: grid; place-items: center; text-align: center; font-size: .78rem; color: var(--muted);
-              background: repeating-linear-gradient(45deg, var(--band) 0 8px, var(--white) 8px 16px); border: 1px solid var(--line); padding: 10px; }
+  .qr .code { width: 170px; height: 170px; max-width: 100%; display: block; }
   .qr small { color: var(--muted); font-size: .78rem; text-align: center; }
   @media (max-width: 760px) { .join .wrap { grid-template-columns: 1fr; } .qr { display: none; } }
 
@@ -189,7 +188,7 @@
       <a href="#example">Example deal</a>
       <a href="#about">About</a>
       <a href="#sell">Sell a property</a>
-      <a class="btn btn-primary" href="#join">Join investor list</a>
+      <a class="btn btn-primary" href="https://forms.gle/ujGL8JH6AkiShEmz5">Join investor list</a>
     </nav>
   </div>
 </header>
@@ -201,7 +200,7 @@
       <h1>Data-driven property sourcing</h1>
       <p>We find below-market-value houses across Nottinghamshire and Derbyshire, check every number against real sold prices, and package them for hands-off investors.</p>
       <div class="ctas">
-        <a class="btn btn-primary" href="#join">Join investor list</a>
+        <a class="btn btn-primary" href="https://forms.gle/ujGL8JH6AkiShEmz5">Join investor list</a>
         <a class="btn btn-ghost" href="#sell">Sell a property</a>
       </div>
     </div>
@@ -267,7 +266,7 @@
         <h2>What a Trident deal looks like</h2>
         <p class="lede">Every deal we send includes a breakdown like this one, plus the sold comparables behind the end value, a floorplan and the refurb quote.</p>
         <p class="lede">Profit is shown after every cost an investor actually pays: stamp duty, legal fees, our sourcing fee, holding costs and selling costs.</p>
-        <div><a class="btn btn-dark" href="#join">Get deals like this</a></div>
+        <div><a class="btn btn-dark" href="https://forms.gle/ujGL8JH6AkiShEmz5">Get deals like this</a></div>
       </div>
       <div class="sheet" role="region" aria-label="Example flip appraisal">
         <header><b>3-bed semi · Derby</b><span>Fix &amp; flip</span></header>
@@ -318,10 +317,10 @@
           <li>Full deal pack on request</li>
           <li>No obligation. Leave any time.</li>
         </ul>
-        <div><a class="btn btn-primary" href="#join">Join the investor list</a></div>
+        <div><a class="btn btn-primary" href="https://forms.gle/ujGL8JH6AkiShEmz5">Join the investor list</a></div>
       </div>
-      <div class="qr" aria-hidden="true">
-        <div class="code">QR code to the sign-up form, added once it's set up</div>
+      <div class="qr">
+        <img class="code" src="img/join-qr.svg" alt="QR code linking to the investor sign-up form">
         <small>On a computer? Scan with your phone.</small>
       </div>
     </div>
