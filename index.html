@@ -36,6 +36,7 @@
     color-scheme: light;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   html { scroll-behavior: smooth; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--font); font-size: 16.5px; line-height: 1.6; }
@@ -141,7 +142,7 @@
 
   /* join */
   .join { background: var(--green); color: var(--white); }
-  .join .wrap { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  .join .wrap { display: grid; grid-template-columns: 1fr minmax(0, 460px); gap: 40px; align-items: center; }
   .join h2 { color: var(--white); }
   .join .eyebrow { color: #8FD4BD; }
   .join p { color: #D7E6E1; max-width: 56ch; }
@@ -150,7 +151,7 @@
   .qr { background: var(--white); border-radius: var(--radius); padding: 18px; display: grid; gap: 10px; justify-items: center; width: 230px; max-width: 100%; }
   .qr .code { width: 170px; height: 170px; max-width: 100%; display: block; }
   .qr small { color: var(--muted); font-size: .78rem; text-align: center; }
-  @media (max-width: 760px) { .join .wrap { grid-template-columns: 1fr; } .qr { display: none; } }
+  @media (max-width: 760px) { .join .wrap { grid-template-columns: 1fr; } }
 
   /* sell */
   .sell { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
@@ -163,6 +164,35 @@
   .contact-card small { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
   .contact-card a, .contact-card span { font-weight: 700; color: var(--navy); text-decoration: none; overflow-wrap: anywhere; }
   @media (max-width: 900px) { .sell { grid-template-columns: 1fr; } }
+
+  /* sign-up form (posts to the Google Form behind the scenes) */
+  .signup { background: var(--white); color: var(--ink); border-radius: var(--radius); padding: 26px; width: 100%; max-width: 460px; justify-self: end; min-width: 0; }
+  #join-form { display: grid; gap: 16px; }
+  .field { display: grid; gap: 6px; border: 0; padding: 0; margin: 0; min-width: 0; }
+  .field label, .field legend { font-size: .82rem; font-weight: 700; color: var(--navy); padding: 0; margin-bottom: 6px; }
+  .opt-tag { font-weight: 500; color: var(--muted); }
+  .field input[type=text], .field input:not([type]), .field input[type=tel], .field input[type=email] {
+    width: 100%; font: inherit; font-size: .95rem; padding: 11px 12px; border: 1.5px solid var(--line); border-radius: var(--radius); background: var(--white); color: var(--ink); }
+  .field input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-tint); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { position: relative; cursor: pointer; }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .opt span { display: inline-block; padding: 8px 12px; border: 1.5px solid var(--line); border-radius: 999px; font-size: .85rem; font-weight: 600; color: var(--navy); transition: background .12s, border-color .12s; }
+  .opt input:checked + span { background: var(--green); border-color: var(--green); color: var(--white); }
+  .opt input:focus-visible + span { outline: 3px solid var(--teal); outline-offset: 2px; }
+  .consent { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: .8rem; color: var(--muted); cursor: pointer; }
+  .consent input { margin-top: 3px; accent-color: var(--green); width: 16px; height: 16px; }
+  .form-error { background: #FDEEE6; color: #A8431F; border-radius: var(--radius); padding: 10px 12px; font-size: .85rem; font-weight: 600; }
+  .submit { width: 100%; border: 0; cursor: pointer; font-family: inherit; font-size: 1rem; }
+  .submit[disabled] { opacity: .7; cursor: progress; }
+  .done { display: grid; gap: 12px; text-align: center; padding: 18px 6px; }
+  .done h3 { font-size: 1.3rem; }
+  .done p { color: var(--muted) !important; }
+  .btn-wa { background: #1FAF54; color: var(--white); }
+  .btn-wa:hover { background: #189446; }
+  @media (max-width: 760px) { .signup { justify-self: stretch; max-width: none; padding: 20px; } }
+  @media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
 
   /* footer */
   footer { background: var(--navy); color: #B9C4D4; padding-block: 48px 36px; font-size: .88rem; }
@@ -188,7 +218,7 @@
       <a href="#example">Example deal</a>
       <a href="#about">About</a>
       <a href="#sell">Sell a property</a>
-      <a class="btn btn-primary" href="https://forms.gle/ujGL8JH6AkiShEmz5">Join investor list</a>
+      <a class="btn btn-primary" href="#join">Join investor list</a>
     </nav>
   </div>
 </header>
@@ -200,7 +230,7 @@
       <h1>Data-driven property sourcing</h1>
       <p>We find below-market-value houses across Nottinghamshire and Derbyshire, check every number against real sold prices, and package them for hands-off investors.</p>
       <div class="ctas">
-        <a class="btn btn-primary" href="https://forms.gle/ujGL8JH6AkiShEmz5">Join investor list</a>
+        <a class="btn btn-primary" href="#join">Join investor list</a>
         <a class="btn btn-ghost" href="#sell">Sell a property</a>
       </div>
     </div>
@@ -266,7 +296,7 @@
         <h2>What a Trident deal looks like</h2>
         <p class="lede">Every deal we send includes a breakdown like this one, plus the sold comparables behind the end value, a floorplan and the refurb quote.</p>
         <p class="lede">Profit is shown after every cost an investor actually pays: stamp duty, legal fees, our sourcing fee, holding costs and selling costs.</p>
-        <div><a class="btn btn-dark" href="https://forms.gle/ujGL8JH6AkiShEmz5">Get deals like this</a></div>
+        <div><a class="btn btn-dark" href="#join">Get deals like this</a></div>
       </div>
       <div class="sheet" role="region" aria-label="Example flip appraisal">
         <header><b>3-bed semi · Derby</b><span>Fix &amp; flip</span></header>
@@ -311,17 +341,41 @@
       <div class="copy">
         <span class="eyebrow">Investor WhatsApp group</span>
         <h2>Get deals before anyone else</h2>
-        <p>New deals go to our investor WhatsApp group first. Tell us what you're looking for and we'll send you the link straight away.</p>
+        <p>New deals go to our investor WhatsApp group first. Tell us what you're looking for and you'll get the link straight away.</p>
         <ul>
           <li>Purchase price, refurb, end value and profit in every post</li>
           <li>Full deal pack on request</li>
           <li>No obligation. Leave any time.</li>
         </ul>
-        <div><a class="btn btn-primary" href="https://forms.gle/ujGL8JH6AkiShEmz5">Join the investor list</a></div>
-      </div>
-      <div class="qr">
-        <img class="code" src="img/join-qr.svg" alt="QR code linking to the investor sign-up form">
-        <small>On a computer? Scan with your phone.</small>
+              </div>
+      <div class="signup" id="signup">
+        <iframe name="gform_sink" id="gform_sink" title="Form submission" hidden></iframe>
+        <form id="join-form" action="https://docs.google.com/forms/d/e/1FAIpQLSeNWYK0MImg9yibmczs9jKRdMTMSLeTGTR6sQmM5qCVyDrOBw/formResponse" method="POST" target="gform_sink" novalidate>
+          <div class="field"><label for="f-name">Full name</label><input id="f-name" name="entry.607198457" autocomplete="name" required></div>
+          <div class="row2">
+            <div class="field"><label for="f-mobile">Mobile (for WhatsApp)</label><input id="f-mobile" name="entry.1265290433" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()\-]{10,18}" placeholder="07700 900123" required></div>
+            <div class="field"><label for="f-email">Email</label><input id="f-email" name="entry.1144745886" type="email" autocomplete="email" required></div>
+          </div>
+          <fieldset class="field" data-required="strategy"><legend>What are you looking for?</legend>
+            <div class="opts"><label class="opt"><input type="checkbox" name="entry.1683800293" value="Flips (buy, refurbish, sell)" data-group="strategy"><span>Flips</span></label><label class="opt"><input type="checkbox" name="entry.1683800293" value="BRRR (buy, refurbish, refinance, rent)" data-group="strategy"><span>BRRR</span></label><label class="opt"><input type="checkbox" name="entry.1683800293" value="Buy-to-let (ready to rent)" data-group="strategy"><span>Buy-to-let</span></label></div></fieldset>
+          <fieldset class="field"><legend>Budget per deal (purchase + refurb)</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.919230414" value="Under £100k" required><span>Under £100k</span></label><label class="opt"><input type="radio" name="entry.919230414" value="£100k – £150k" ><span>£100k – £150k</span></label><label class="opt"><input type="radio" name="entry.919230414" value="£150k – £200k" ><span>£150k – £200k</span></label><label class="opt"><input type="radio" name="entry.919230414" value="£200k – £300k" ><span>£200k – £300k</span></label><label class="opt"><input type="radio" name="entry.919230414" value="£300k+" ><span>£300k+</span></label></div></fieldset>
+          <fieldset class="field"><legend>How would you fund it?</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.1057847358" value="Cash" required><span>Cash</span></label><label class="opt"><input type="radio" name="entry.1057847358" value="Bridging finance" ><span>Bridging finance</span></label><label class="opt"><input type="radio" name="entry.1057847358" value="Mortgage" ><span>Mortgage</span></label><label class="opt"><input type="radio" name="entry.1057847358" value="A mix" ><span>A mix</span></label></div></fieldset>
+          <fieldset class="field" data-required="areas"><legend>Areas</legend>
+            <div class="opts"><label class="opt"><input type="checkbox" name="entry.973325292" value="Nottinghamshire" data-group="areas"><span>Nottinghamshire</span></label><label class="opt"><input type="checkbox" name="entry.973325292" value="Derbyshire" data-group="areas"><span>Derbyshire</span></label></div></fieldset>
+          <fieldset class="field"><legend>Property deals done so far <span class="opt-tag">optional</span></legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.356470785" value="None yet - this would be my first"><span>None yet</span></label><label class="opt"><input type="radio" name="entry.356470785" value="1 – 3" ><span>1–3</span></label><label class="opt"><input type="radio" name="entry.356470785" value="4 – 10" ><span>4–10</span></label><label class="opt"><input type="radio" name="entry.356470785" value="More than 10" ><span>10+</span></label></div></fieldset>
+          <input type="hidden" name="entry.422427125" value="Website">
+          <label class="consent"><input type="checkbox" id="f-consent" name="entry.1447452174" value="I'm happy to join the Trident investor WhatsApp group and to be contacted about deals by WhatsApp, phone and email. I can leave at any time." required><span>I'm happy to join the Trident investor WhatsApp group and be contacted about deals by WhatsApp, phone and email. I can leave at any time.</span></label>
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+          <button class="btn btn-primary submit" type="submit" id="join-submit">Join the investor list</button>
+        </form>
+        <div class="done" id="join-done" hidden tabindex="-1">
+          <h3>You're on the list</h3>
+          <p>Tap below to join the Trident investor WhatsApp group. We've also emailed you the link.</p>
+          <a class="btn btn-wa" href="https://chat.whatsapp.com/FaBXYtgNrA5HddAgFOB30Q" target="_blank" rel="noopener">Join the WhatsApp group</a>
+        </div>
       </div>
     </div>
   </section>
@@ -365,5 +419,28 @@
     </div>
   </div>
 </footer>
+<script>
+(function () {
+  var form = document.getElementById('join-form'), sink = document.getElementById('gform_sink');
+  var err = document.getElementById('form-error'), btn = document.getElementById('join-submit'), done = document.getElementById('join-done');
+  var submitted = false;
+  function fail(msg, el) { err.textContent = msg; err.hidden = false; if (el) el.focus(); }
+  form.addEventListener('submit', function (e) {
+    err.hidden = true;
+    var fields = [['f-name', 'Please enter your name.'], ['f-mobile', 'Please enter a mobile number, e.g. 07700 900123.'], ['f-email', 'Please enter a valid email address.']];
+    for (var i = 0; i < fields.length; i++) { var el = document.getElementById(fields[i][0]); if (!el.checkValidity()) { e.preventDefault(); return fail(fields[i][1], el); } }
+    var groups = [['strategy', 'Choose what you\'re looking for.'], ['areas', 'Choose at least one area.']];
+    for (var g = 0; g < groups.length; g++) { if (!form.querySelector('input[data-group="' + groups[g][0] + '"]:checked')) { e.preventDefault(); return fail(groups[g][1], form.querySelector('input[data-group="' + groups[g][0] + '"]')); } }
+    var radioNames = [['entry.919230414', 'Choose a budget.'], ['entry.1057847358', 'Choose how you\'d fund it.']];
+    for (var r = 0; r < radioNames.length; r++) { if (!form.querySelector('input[name="' + radioNames[r][0] + '"]:checked')) { e.preventDefault(); return fail(radioNames[r][1], form.querySelector('input[name="' + radioNames[r][0] + '"]')); } }
+    if (!document.getElementById('f-consent').checked) { e.preventDefault(); return fail('Please tick the box to agree to be contacted.', document.getElementById('f-consent')); }
+    submitted = true; btn.disabled = true; btn.textContent = 'Sending…';
+  });
+  sink.addEventListener('load', function () {
+    if (!submitted) return;
+    form.hidden = true; done.hidden = false; done.focus();
+  });
+})();
+</script>
 </body>
 </html>
