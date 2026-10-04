@@ -508,7 +508,7 @@ posthog.register({ src: window.tridentSrc });
 
 /* Track record: public deal log (no addresses or investors), read from a
    link-shared Google Sheet. Section stays hidden until there's a deal. */
-var DEAL_LOG_SHEET_ID = '';
+var DEAL_LOG_SHEET_ID = '1BKVbQVt3QvT5pl_EpwbVRanW6IHvztcd_qgm-hApmTk';
 function tridentDealLog(resp) {
   try {
     var rows = resp.table.rows || [], tb = document.querySelector('#deal-log tbody'), esc = function (v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
