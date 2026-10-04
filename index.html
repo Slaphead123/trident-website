@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Trident Property Sourcing">
+<meta property="og:description" content="Below-market-value houses in Nottinghamshire and Derbyshire, packaged for hands-off property investors.">
+<meta property="og:image" content="https://www.tridentpropertysourcing.co.uk/img/logo.png">
+<meta property="og:url" content="https://www.tridentpropertysourcing.co.uk/">
+<link rel="icon" type="image/png" href="img/icon.png">
+<title>Trident Property Sourcing</title>
+<meta name="description" content="Below-market-value houses in Nottinghamshire and Derbyshire, packaged for hands-off property investors. Flips, BRRR and buy-to-let.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+  /* Layout: the current Squarespace site, tightened into one page -
+     white header with the full-colour logo, deep-green hero, light content
+     bands, green "join" band, dark footer. Single deliberate light look. */
+  :root {
+    --green: #1B4B45;        /* site primary */
+    --green-deep: #133631;
+    --teal: #1E8E6E;         /* logo arrow green */
+    --teal-tint: #E7F2EE;
+    --navy: #10213B;         /* logo wordmark */
+    --ink: #17221F;
+    --muted: #55625E;
+    --line: #DCE3E0;
+    --band: #F3F6F5;
+    --white: #FFFFFF;
+    --font: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --step-hero: clamp(2rem, 5vw, 3.3rem);
+    --step-h2: clamp(1.55rem, 3.2vw, 2.25rem);
+    --step-h3: 1.08rem;
+    --radius: 6px;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--font); font-size: 16.5px; line-height: 1.6; }
+  a { color: var(--green); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+  .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+  h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.2; }
+  h2 { font-size: var(--step-h2); font-weight: 800; color: var(--navy); }
+  h3 { font-size: var(--step-h3); font-weight: 700; color: var(--navy); }
+  p { margin: 0; }
+  .eyebrow { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); }
+  .lede { color: var(--muted); max-width: 62ch; }
+  section { padding-block: clamp(56px, 8vw, 96px); }
+  .section-head { display: grid; gap: 12px; margin-bottom: 40px; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; border-radius: var(--radius);
+         font-weight: 700; font-size: .95rem; text-decoration: none; border: 2px solid transparent; transition: background .15s, color .15s; }
+  .btn-primary { background: var(--teal); color: var(--white); }
+  .btn-primary:hover { background: #187A5E; }
+  .btn-ghost { border-color: rgba(255,255,255,.7); color: var(--white); }
+  .btn-ghost:hover { background: rgba(255,255,255,.1); }
+  .btn-dark { background: var(--green); color: var(--white); }
+  .btn-dark:hover { background: var(--green-deep); }
+
+  /* header */
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--white); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; flex-wrap: wrap; }
+  .top img { height: 52px; width: auto; display: block; }
+  .nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; font-size: .9rem; font-weight: 600; }
+  .nav a { color: var(--navy); text-decoration: none; }
+  .nav a:hover { color: var(--teal); }
+  .nav .btn { padding: 10px 18px; color: var(--white); }
+  @media (max-width: 760px) { .nav a:not(.btn) { display: none; } .top img { height: 42px; } }
+
+  /* hero */
+  .hero { background: var(--green); color: var(--white); padding-block: clamp(64px, 10vw, 120px); position: relative; overflow: hidden; }
+  .hero::after { content: ""; position: absolute; right: -120px; top: -60px; width: 520px; height: 520px; border-radius: 50%;
+                 background: radial-gradient(circle, rgba(30,142,110,.35), rgba(30,142,110,0) 70%); pointer-events: none; }
+  .hero .wrap { position: relative; z-index: 1; display: grid; gap: 22px; }
+  .hero .eyebrow { color: #8FD4BD; }
+  .hero h1 { font-size: var(--step-hero); font-weight: 800; letter-spacing: -.01em; max-width: 18ch; text-transform: uppercase; }
+  .hero p { font-size: 1.12rem; color: #D7E6E1; max-width: 56ch; }
+  .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
+  .patch { display: inline-flex; gap: 8px; align-items: center; font-size: .85rem; font-weight: 600; color: #BFD9D0; }
+  .patch::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #8FD4BD; }
+
+  /* stats */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--line); }
+  .stat { padding: 34px 24px; display: grid; gap: 6px; align-content: start; }
+  .stat + .stat { border-left: 1px solid var(--line); }
+  .stat b { font-size: clamp(1.7rem, 3.4vw, 2.4rem); font-weight: 800; color: var(--green); font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .stat span { font-weight: 700; color: var(--navy); }
+  .stat small { color: var(--muted); font-size: .92rem; }
+  @media (max-width: 760px) { .stats { grid-template-columns: 1fr; } .stat + .stat { border-left: 0; border-top: 1px solid var(--line); } }
+
+  /* strategies */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .card { border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; display: grid; gap: 12px; align-content: start; background: var(--white); min-width: 0; }
+  .card .tags { font-size: .8rem; font-weight: 700; color: var(--teal); }
+  .card dl { margin: 6px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: .9rem; border-top: 1px solid var(--line); padding-top: 14px; }
+  .card dt { color: var(--muted); }
+  .card dd { margin: 0; font-weight: 700; color: var(--navy); text-align: right; font-variant-numeric: tabular-nums; }
+  @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+
+  /* process */
+  .band { background: var(--band); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: step; }
+  .step { padding: 0 22px 0 0; display: grid; gap: 10px; align-content: start; min-width: 0; }
+  .step::before { counter-increment: step; content: "Step 0" counter(step); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+                  color: var(--teal); border-top: 3px solid var(--teal); padding-top: 14px; }
+  .step p { color: var(--muted); font-size: .95rem; }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; gap: 32px 0; } }
+  @media (max-width: 520px) { .steps { grid-template-columns: 1fr; } }
+
+  /* example appraisal */
+  .appraisal { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: start; }
+  .appraisal .copy { display: grid; gap: 16px; }
+  .sheet { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--white); min-width: 0; }
+  .sheet header { background: var(--navy); color: var(--white); padding: 16px 20px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+  .sheet header b { font-size: 1rem; }
+  .sheet header span { font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: #9FB0C8; font-weight: 700; }
+  .sheet table { width: 100%; border-collapse: collapse; font-size: .93rem; font-variant-numeric: tabular-nums; }
+  .sheet td { padding: 10px 20px; border-bottom: 1px solid var(--line); }
+  .sheet td:last-child { text-align: right; font-weight: 600; white-space: nowrap; }
+  .sheet tr.sub td { color: var(--muted); font-size: .86rem; padding-block: 6px; }
+  .sheet tr.total td { font-weight: 800; color: var(--navy); background: var(--band); }
+  .sheet tr.win td { font-weight: 800; color: var(--white); background: var(--green); font-size: 1rem; border-bottom: 0; }
+  .sheet .note { padding: 12px 20px; font-size: .8rem; color: var(--muted); }
+  @media (max-width: 900px) { .appraisal { grid-template-columns: 1fr; gap: 28px; } }
+
+  /* about */
+  .about { display: grid; grid-template-columns: 300px 1fr; gap: 48px; align-items: start; }
+  .portrait { display: block; width: 100%; aspect-ratio: 4/5; max-width: 100%; object-fit: cover; border-radius: var(--radius); background: var(--teal-tint); }
+  .about .copy { display: grid; gap: 16px; min-width: 0; }
+  .role { font-weight: 700; color: var(--navy); }
+  .role small { display: block; font-weight: 600; color: var(--teal); font-size: .85rem; letter-spacing: .04em; }
+  .creds { list-style: none; padding: 0; margin: 8px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .creds li { border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; font-size: .88rem; display: grid; gap: 2px; }
+  .creds b { color: var(--navy); }
+  .creds span { color: var(--muted); font-variant-numeric: tabular-nums; }
+  @media (max-width: 900px) { .about { grid-template-columns: 1fr; } .portrait { max-width: 260px; } }
+  @media (max-width: 520px) { .creds { grid-template-columns: 1fr; } }
+
+  /* join */
+  .join { background: var(--green); color: var(--white); }
+  .join .wrap { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  .join h2 { color: var(--white); }
+  .join .eyebrow { color: #8FD4BD; }
+  .join p { color: #D7E6E1; max-width: 56ch; }
+  .join .copy { display: grid; gap: 14px; }
+  .join ul { margin: 0; padding-left: 20px; color: #D7E6E1; display: grid; gap: 4px; }
+  .qr { background: var(--white); border-radius: var(--radius); padding: 18px; display: grid; gap: 10px; justify-items: center; width: 230px; max-width: 100%; }
+  .qr .code { width: 170px; height: 170px; max-width: 100%; display: grid; place-items: center; text-align: center; font-size: .78rem; color: var(--muted);
+              background: repeating-linear-gradient(45deg, var(--band) 0 8px, var(--white) 8px 16px); border: 1px solid var(--line); padding: 10px; }
+  .qr small { color: var(--muted); font-size: .78rem; text-align: center; }
+  @media (max-width: 760px) { .join .wrap { grid-template-columns: 1fr; } .qr { display: none; } }
+
+  /* sell */
+  .sell { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: start; }
+  .sell .copy { display: grid; gap: 16px; }
+  .ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .ticks li { padding-left: 28px; position: relative; }
+  .ticks li::before { content: ""; position: absolute; left: 0; top: .45em; width: 14px; height: 8px; border-left: 3px solid var(--teal); border-bottom: 3px solid var(--teal); transform: rotate(-45deg); }
+  .contact-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; display: grid; gap: 16px; background: var(--band); min-width: 0; }
+  .contact-card div { display: grid; gap: 2px; }
+  .contact-card small { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .contact-card a, .contact-card span { font-weight: 700; color: var(--navy); text-decoration: none; overflow-wrap: anywhere; }
+  @media (max-width: 900px) { .sell { grid-template-columns: 1fr; } }
+
+  /* footer */
+  footer { background: var(--navy); color: #B9C4D4; padding-block: 48px 36px; font-size: .88rem; }
+  footer .wrap { display: grid; gap: 28px; }
+  footer .cols { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 28px; }
+  footer img { height: 54px; width: auto; }
+  footer b { color: var(--white); display: block; margin-bottom: 6px; }
+  footer a { color: #DCE6F2; }
+  footer .small { border-top: 1px solid rgba(255,255,255,.12); padding-top: 18px; font-size: .8rem; display: grid; gap: 8px; }
+  footer details summary { cursor: pointer; color: #DCE6F2; font-weight: 600; }
+  footer details p { margin-top: 8px; max-width: 80ch; }
+  @media (max-width: 760px) { footer .cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="#top" aria-label="Trident Property Sourcing home"><img src="img/logo.png" alt="Trident Property Sourcing"></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#strategies">Investors</a>
+      <a href="#how">How it works</a>
+      <a href="#example">Example deal</a>
+      <a href="#about">About</a>
+      <a href="#sell">Sell a property</a>
+      <a class="btn btn-primary" href="#join">Join investor list</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="patch">Nottinghamshire &amp; Derbyshire</span>
+      <h1>Data-driven property sourcing</h1>
+      <p>We find below-market-value houses across Nottinghamshire and Derbyshire, check every number against real sold prices, and package them for hands-off investors.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#join">Join investor list</a>
+        <a class="btn btn-ghost" href="#sell">Sell a property</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>10–20%</b><span>Below asking price</span><small>Negotiated discounts agents actually accept, not wishful offers.</small></div>
+      <div class="stat"><b>15%+</b><span>Target investor ROI on flips</span><small>After every cost, including our fee.</small></div>
+      <div class="stat"><b>100%</b><span>Stress-tested</span><small>Every deal checked against Land Registry sold prices before it reaches you.</small></div>
+    </div>
+  </div>
+
+  <section id="strategies">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">For investors</span>
+        <h2>What we source</h2>
+        <p class="lede">2–4 bed houses between £50,000 and £200,000 that need modernising, for busy professionals and portfolio landlords who want the returns without the legwork.</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>Fix &amp; Flip</h3>
+          <p>Below-market-value houses with a clear uplift from refurbishment, for investors after a short-term capital return.</p>
+          <span class="tags">Forced equity · 6–9 month turnaround</span>
+          <dl><dt>Target return</dt><dd>15%+ ROI</dd><dt>Typical capital</dt><dd>£60,000+</dd></dl>
+        </article>
+        <article class="card">
+          <h3>BRRR</h3>
+          <p>Buy, refurbish, refinance, rent. Bought at a discount so most of your money comes back out on refinance.</p>
+          <span class="tags">Capital recycling · 6–12 months</span>
+          <dl><dt>Target return</dt><dd>15–25% equity uplift</dd><dt>Typical capital</dt><dd>£50,000–£80,000</dd></dl>
+        </article>
+        <article class="card">
+          <h3>Buy-to-let</h3>
+          <p>Ready or light-refurb houses in strong rental areas, chosen for steady income and long-term growth.</p>
+          <span class="tags">Single lets · Stable yield</span>
+          <dl><dt>Target return</dt><dd>8–12% gross yield</dd><dt>Typical capital</dt><dd>£35,000–£50,000</dd></dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="band">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2>From listing to keys</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>Data analysis</h3><p>We track every listing in our patch for price drops, long time on the market and chain-free sales, to spot motivated sellers early.</p></div>
+        <div class="step"><h3>Negotiation</h3><p>We speak to agents and vendors directly to agree a genuine discount, and only take on deals where the numbers still work.</p></div>
+        <div class="step"><h3>Due diligence</h3><p>End values come from recent sold prices nearby. Every deal gets a builder's refurb quote and a full cost breakdown.</p></div>
+        <div class="step"><h3>Deal pack</h3><p>The deal goes to our investor group first, with a full pack. Reserve it and we manage it through to completion.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="example">
+    <div class="wrap appraisal">
+      <div class="copy">
+        <span class="eyebrow">Example deal</span>
+        <h2>What a Trident deal looks like</h2>
+        <p class="lede">Every deal we send includes a breakdown like this one, plus the sold comparables behind the end value, a floorplan and the refurb quote.</p>
+        <p class="lede">Profit is shown after every cost an investor actually pays: stamp duty, legal fees, our sourcing fee, holding costs and selling costs.</p>
+        <div><a class="btn btn-dark" href="#join">Get deals like this</a></div>
+      </div>
+      <div class="sheet" role="region" aria-label="Example flip appraisal">
+        <header><b>3-bed semi · Derby</b><span>Fix &amp; flip</span></header>
+        <table>
+          <tr><td>Asking price</td><td>£150,000</td></tr>
+          <tr><td>Agreed purchase price <span style="color:var(--teal);font-weight:700">(13% below asking)</span></td><td>£130,000</td></tr>
+          <tr><td>Refurbishment, inc. 10% contingency</td><td>£26,400</td></tr>
+          <tr><td>Buying costs</td><td>£8,600</td></tr>
+          <tr class="sub"><td>Stamp duty £6,600 · legal and survey £2,000</td><td></td></tr>
+          <tr><td>Trident sourcing fee</td><td>£6,000</td></tr>
+          <tr><td>Holding costs (8 months)</td><td>£4,000</td></tr>
+          <tr><td>Selling costs (agent and legal)</td><td>£4,650</td></tr>
+          <tr class="total"><td>Total cost</td><td>£179,650</td></tr>
+          <tr><td>End value, from local sold prices</td><td>£210,000</td></tr>
+          <tr class="win"><td>Investor profit · ROI</td><td>£30,350 · 16.9%</td></tr>
+        </table>
+        <p class="note">Illustrative example of our standard appraisal, not a live deal. Figures are estimates; investors should carry out their own due diligence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="band">
+    <div class="wrap about">
+      <img class="portrait" src="img/dave.jpg" alt="Dave Shaw, founder of Trident Property Sourcing">
+      <div class="copy">
+        <span class="eyebrow">About</span>
+        <h2>Sourcing backed by financial rigour</h2>
+        <p class="role">Dave Shaw, Founder<small>ACA Chartered Accountant · Commercial real estate</small></p>
+        <p class="lede">Dave is a Chartered Accountant with six years in commercial real estate, where he worked on property transactions, valuations and financial models. He started Trident to bring the same discipline to residential deals: every number checked, every cost included, nothing rounded in the investor's favour.</p>
+        <ul class="creds">
+          <li><b>ICO registered</b><span>ZC223627</span></li>
+          <li><b>Property Redress Scheme</b><span>Member PRS060259</span></li>
+          <li><b>Anti-money laundering</b><span>HMRC supervised</span></li>
+          <li><b>Professional indemnity</b><span>Fully insured</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="join" id="join">
+    <div class="wrap">
+      <div class="copy">
+        <span class="eyebrow">Investor WhatsApp group</span>
+        <h2>Get deals before anyone else</h2>
+        <p>New deals go to our investor WhatsApp group first. Tell us what you're looking for and we'll send you the link straight away.</p>
+        <ul>
+          <li>Purchase price, refurb, end value and profit in every post</li>
+          <li>Full deal pack on request</li>
+          <li>No obligation. Leave any time.</li>
+        </ul>
+        <div><a class="btn btn-primary" href="#join">Join the investor list</a></div>
+      </div>
+      <div class="qr" aria-hidden="true">
+        <div class="code">QR code to the sign-up form, added once it's set up</div>
+        <small>On a computer? Scan with your phone.</small>
+      </div>
+    </div>
+  </section>
+
+  <section id="sell">
+    <div class="wrap sell">
+      <div class="copy">
+        <span class="eyebrow">Selling a property?</span>
+        <h2>Sell your house off-market</h2>
+        <p class="lede">We buy for funded investors across Nottinghamshire and Derbyshire, from landlords, homeowners and agents with properties that need work.</p>
+        <ul class="ticks">
+          <li>No estate agent fees</li>
+          <li>Any condition, tenanted or vacant</li>
+          <li>Funded buyers, so fewer delays</li>
+          <li>Private sale with no public listing or open viewings</li>
+        </ul>
+      </div>
+      <div class="contact-card" id="contact">
+        <div><small>Call or WhatsApp</small><a href="tel:+447988034667">07988 034667</a></div>
+        <div><small>Email</small><a href="mailto:info@tridentpropertysourcing.co.uk">info@tridentpropertysourcing.co.uk</a></div>
+        <div><small>We'll need</small><span style="font-weight:500;color:var(--muted)">The address, your asking price, whether it's tenanted, and a rough idea of the work needed. We reply within 24 hours.</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div><img src="img/logo-white.png" alt="Trident Property Sourcing"></div>
+      <div><b>Dave Shaw LDN Ltd</b>7 Martins Hill, Carlton<br>Nottingham NG4 1AZ</div>
+      <div><b>Contact</b>07988 034667<br><a href="mailto:info@tridentpropertysourcing.co.uk">info@tridentpropertysourcing.co.uk</a></div>
+    </div>
+    <div class="small">
+      <p>Trident Property Sourcing is a trading name of Dave Shaw LDN Ltd. Registered with the ICO (ZC223627) and a member of the Property Redress Scheme (PRS060259). Deals are provided for information and investment evaluation; they are not financial advice.</p>
+      <details>
+        <summary>Privacy notice</summary>
+        <p>Dave Shaw LDN Ltd collects the details you give us (name, phone, email and what you're looking for) to send you property deals and to contact you about them. We don't sell or share your details. Ask us at any time to see, change or delete what we hold, or to stop contacting you, by emailing info@tridentpropertysourcing.co.uk.</p>
+      </details>
+      <p>© 2026 Dave Shaw LDN Ltd</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
