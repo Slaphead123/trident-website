@@ -144,12 +144,49 @@
     (d.querySelector('#shGo') || d.querySelector('#shSave')).focus();
   }
 
+  // Post images for Facebook (Social tab, 05/10): the share sheet with the
+  // PNGs attached, plus a button to copy the post text first (Facebook
+  // ignores text passed through the share sheet).
+  function imageSheet(m) {
+    closeSheet();
+    var files = [];
+    try {
+      m.files.slice(0, 10).forEach(function (f) {
+        if (!/\.png$/i.test(String(f.name || '')) || typeof f.b64 !== 'string' || f.b64.length > 15000000) return;
+        var bytes = atob(f.b64), arr = new Uint8Array(bytes.length);
+        for (var i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+        files.push(new File([arr], String(f.name).replace(/[\\/:*?"<>|]/g, '_'), { type: 'image/png' }));
+      });
+    } catch (e) { files = []; }
+    if (!files.length) return;
+    var canShare = !!(navigator.canShare && navigator.canShare({ files: files }));
+    var text = String(m.text || '');
+    var d = document.createElement('div'); d.className = 'sheet'; d.id = 'wa';
+    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', 'Post to Facebook');
+    d.innerHTML = '<div class="box"><h2>Post to Facebook</h2><p></p>'
+      + (text ? '<button id="imCopy" style="background:#1B4B45;color:#FFFFFF">1. Copy the post text</button>' : '')
+      + (canShare ? '<button id="imGo"' + (text ? ' class="quiet"' : ' style="background:#1B4B45;color:#FFFFFF"') + '>' + (text ? '2. ' : '') + 'Share ' + (files.length > 1 ? 'the ' + files.length + ' images' : 'the image') + '</button>' : '<a id="imSave">Save ' + (files.length > 1 ? 'the images' : 'the image') + '</a>')
+      + '<button class="quiet" id="waNo">Cancel</button></div>';
+    d.querySelector('p').textContent = canShare ? 'Copy the text, then share and pick Facebook. Paste the text into the post before you publish.' : 'Save, then add ' + (files.length > 1 ? 'them' : 'it') + ' to your post in Facebook.';
+    var cp = d.querySelector('#imCopy');
+    if (cp) cp.onclick = function () { var b = this; (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { b.textContent = 'Copied'; }, function () { b.textContent = 'Couldn\'t copy: use Copy text in the app'; }); };
+    if (canShare) d.querySelector('#imGo').onclick = function () {
+      navigator.share({ files: files }).then(closeSheet, function (e) { if (e && e.name !== 'AbortError') d.querySelector('p').textContent = 'Couldn\'t open sharing: ' + (e.message || e); });
+    };
+    else { var a = d.querySelector('#imSave'); a.onclick = function () { files.forEach(function (f) { var l = document.createElement('a'); l.href = URL.createObjectURL(f); l.download = f.name; document.body.appendChild(l); l.click(); l.remove(); }); closeSheet(); }; a.href = '#'; }
+    d.querySelector('#waNo').onclick = closeSheet;
+    d.onclick = function (e) { if (e.target === d) closeSheet(); };
+    document.body.appendChild(d);
+    (d.querySelector('#imCopy') || d.querySelector('#imGo') || d.querySelector('#imSave')).focus();
+  }
+
   window.addEventListener('message', function (e) {
     var host = ''; try { host = new URL(e.origin).hostname; } catch (x) { return; }
     if (!/(^|\.)googleusercontent\.com$/.test(host) && host !== 'script.google.com') return;
     var m = e.data || {};
     if (m.trident === 'hello' && e.source) e.source.postMessage({ trident: 'launcher' }, e.origin);
     else if (m.trident === 'whatsapp') { var w = waUrl(m.url); if (w) sheet(w); }
+    else if (m.trident === 'shareimages' && Array.isArray(m.files)) imageSheet(m);
     else if (m.trident === 'sharefile' && typeof m.b64 === 'string' && /\.pdf$/i.test(String(m.name || '')) && m.b64.length < 30000000) fileSheet(m);
   });
 
