@@ -115,12 +115,42 @@
     document.body.appendChild(d);
     d.querySelector('#waGo').focus();
   }
+  // The deal pack PDF itself (05/10): a tap here opens the phone's share
+  // sheet with the file attached, so it goes into WhatsApp as a document.
+  function fileSheet(m) {
+    closeSheet();
+    var bytes = atob(m.b64), arr = new Uint8Array(bytes.length);
+    for (var i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+    var blob = new Blob([arr], { type: 'application/pdf' }), file = null, name = String(m.name).replace(/[\\/:*?"<>|]/g, '_');
+    try { file = new File([blob], name, { type: 'application/pdf' }); } catch (e) { file = null; }
+    var canShare = !!(file && navigator.canShare && navigator.canShare({ files: [file] }));
+    var text = String(m.text || '');
+    var d = document.createElement('div'); d.className = 'sheet'; d.id = 'wa';
+    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', 'Send the deal pack');
+    d.innerHTML = '<div class="box"><h2>Send the deal pack</h2><p></p>'
+      + (canShare ? '<button id="shGo" style="background:#1B4B45;color:#FFFFFF">Share the PDF</button>' : '<a id="shSave">Save the PDF</a>')
+      + (text ? '<button class="quiet" id="waCopy">Copy the message</button>' : '') + '<button class="quiet" id="waNo">Cancel</button></div>';
+    d.querySelector('p').textContent = (canShare ? 'Pick WhatsApp, then the person or group. ' : 'Save it, then attach it in WhatsApp. ') + name + (text ? '\n\n' + text : '');
+    if (canShare) d.querySelector('#shGo').onclick = function () {
+      var data = { files: [file] };
+      navigator.share(data).then(closeSheet, function (e) { if (e && e.name !== 'AbortError') d.querySelector('p').textContent = 'Couldn\'t open sharing: ' + (e.message || e); });
+    };
+    else { var a = d.querySelector('#shSave'); a.href = URL.createObjectURL(blob); a.download = name; }
+    var cp = d.querySelector('#waCopy');
+    if (cp) cp.onclick = function () { var b = this; (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { b.textContent = 'Copied: paste it with the PDF'; }, function () { b.textContent = 'Couldn\'t copy'; }); };
+    d.querySelector('#waNo').onclick = closeSheet;
+    d.onclick = function (e) { if (e.target === d) closeSheet(); };
+    document.body.appendChild(d);
+    (d.querySelector('#shGo') || d.querySelector('#shSave')).focus();
+  }
+
   window.addEventListener('message', function (e) {
     var host = ''; try { host = new URL(e.origin).hostname; } catch (x) { return; }
     if (!/(^|\.)googleusercontent\.com$/.test(host) && host !== 'script.google.com') return;
     var m = e.data || {};
     if (m.trident === 'hello' && e.source) e.source.postMessage({ trident: 'launcher' }, e.origin);
     else if (m.trident === 'whatsapp') { var w = waUrl(m.url); if (w) sheet(w); }
+    else if (m.trident === 'sharefile' && typeof m.b64 === 'string' && /\.pdf$/i.test(String(m.name || '')) && m.b64.length < 30000000) fileSheet(m);
   });
 
   var saved = clean(get());
