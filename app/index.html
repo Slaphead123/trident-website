@@ -124,24 +124,27 @@
     var blob = new Blob([arr], { type: 'application/pdf' }), file = null, name = String(m.name).replace(/[\\/:*?"<>|]/g, '_');
     try { file = new File([blob], name, { type: 'application/pdf' }); } catch (e) { file = null; }
     var canShare = !!(file && navigator.canShare && navigator.canShare({ files: [file] }));
+    var save = m.mode === 'save';   // 05/10: "Save preview PDF" saves; "Send on WhatsApp" shares
     var text = String(m.text || '');
     var d = document.createElement('div'); d.className = 'sheet'; d.id = 'wa';
-    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', 'Send the deal pack');
-    d.innerHTML = '<div class="box"><h2>Send the deal pack</h2><p></p>'
-      + (canShare ? '<button id="shGo" style="background:#1B4B45;color:#FFFFFF">Share the PDF</button>' : '<a id="shSave">Save the PDF</a>')
-      + (text ? '<button class="quiet" id="waCopy">Copy the message</button>' : '') + '<button class="quiet" id="waNo">Cancel</button></div>';
-    d.querySelector('p').textContent = (canShare ? 'Pick WhatsApp, then the person or group. ' : 'Save it, then attach it in WhatsApp. ') + name + (text ? '\n\n' + text : '');
+    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', save ? 'Save the deal pack' : 'Send the deal pack');
+    var shareBtn = canShare ? '<button id="shGo"' + (save ? ' class="quiet">Share instead' : ' style="background:#1B4B45;color:#FFFFFF">Share the PDF') + '</button>' : '';
+    var saveLink = '<a id="shSave"' + (save || !canShare ? '' : ' class="quiet"') + '>Save the PDF</a>';
+    d.innerHTML = '<div class="box"><h2>' + (save ? 'Save the deal pack' : 'Send the deal pack') + '</h2><p></p>'
+      + (save ? saveLink + shareBtn : shareBtn + saveLink)
+      + (text && !save ? '<button class="quiet" id="waCopy">Copy the message</button>' : '') + '<button class="quiet" id="waNo">Cancel</button></div>';
+    d.querySelector('p').textContent = save ? name + '\n\nOn a phone, the PDF opens: use its share button and pick Save to Files.'
+      : (canShare ? 'Pick WhatsApp, then the person or group. ' : 'Save it, then attach it in WhatsApp. ') + name + (text ? '\n\n' + text : '');
     if (canShare) d.querySelector('#shGo').onclick = function () {
-      var data = { files: [file] };
-      navigator.share(data).then(closeSheet, function (e) { if (e && e.name !== 'AbortError') d.querySelector('p').textContent = 'Couldn\'t open sharing: ' + (e.message || e); });
+      navigator.share({ files: [file] }).then(closeSheet, function (e) { if (e && e.name !== 'AbortError') d.querySelector('p').textContent = 'Couldn\'t open sharing: ' + (e.message || e); });
     };
-    else { var a = d.querySelector('#shSave'); a.href = URL.createObjectURL(blob); a.download = name; }
+    var a = d.querySelector('#shSave'); a.href = URL.createObjectURL(blob); a.download = name; a.addEventListener('click', function () { setTimeout(closeSheet, 300); });
     var cp = d.querySelector('#waCopy');
     if (cp) cp.onclick = function () { var b = this; (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { b.textContent = 'Copied: paste it with the PDF'; }, function () { b.textContent = 'Couldn\'t copy'; }); };
     d.querySelector('#waNo').onclick = closeSheet;
     d.onclick = function (e) { if (e.target === d) closeSheet(); };
     document.body.appendChild(d);
-    (d.querySelector('#shGo') || d.querySelector('#shSave')).focus();
+    (save ? d.querySelector('#shSave') : (d.querySelector('#shGo') || d.querySelector('#shSave'))).focus();
   }
 
   // Post images for Facebook (Social tab, 05/10): the share sheet with the
