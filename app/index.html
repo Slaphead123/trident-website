@@ -31,6 +31,13 @@
   .err{color:#FFD1C7;font-weight:600}
   ol{margin:0;padding-left:20px;color:var(--muted)}
   li{margin-bottom:4px}
+  .sheet{position:fixed;inset:0;z-index:10;background:rgba(14,26,24,.55);display:flex;align-items:flex-end;justify-content:center}
+  .sheet .box{width:100%;max-width:520px;box-sizing:border-box;background:#FFFFFF;color:#17221F;border-radius:14px 14px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px}
+  .sheet h2{margin:0;font-size:17px}
+  .sheet p{color:#55625E;font-size:14px;max-height:30vh;overflow:auto;white-space:pre-wrap}
+  .sheet a,.sheet button{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:8px;font:700 16px system-ui,sans-serif;text-decoration:none}
+  .sheet a{background:#1B4B45;color:#FFFFFF}
+  .sheet .quiet{background:#FFFFFF;color:#1B4B45;border:1.5px solid #DCE3E0}
 </style>
 </head>
 <body>
@@ -75,6 +82,46 @@
       open(link);
     };
   }
+
+  // WhatsApp hand-off (05/10). Links opened from inside the app land in an
+  // in-app browser on iPhone, which can't open WhatsApp. The app asks this
+  // page instead, and the tap on "Open WhatsApp" here opens it directly.
+  // Only WhatsApp links from the Apps Script app are accepted.
+  function waUrl(raw) {
+    var u; try { u = new URL(String(raw)); } catch (e) { return null; }
+    if (u.protocol === 'https:' && (u.hostname === 'wa.me' || u.hostname === 'api.whatsapp.com')) {
+      var phone = u.hostname === 'wa.me' ? u.pathname.replace(/\D/g, '') : (u.searchParams.get('phone') || '').replace(/\D/g, '');
+      var q = 'text=' + encodeURIComponent(u.searchParams.get('text') || '') + (phone ? '&phone=' + phone : '');
+      return { app: 'whatsapp://send?' + q, web: u.toString(), text: u.searchParams.get('text') || '' };
+    }
+    return null;
+  }
+  function closeSheet() { var el = document.getElementById('wa'); if (el) el.remove(); }
+  function sheet(w) {
+    closeSheet();
+    var d = document.createElement('div'); d.className = 'sheet'; d.id = 'wa';
+    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', 'Send on WhatsApp');
+    d.innerHTML = '<div class="box"><h2>Send on WhatsApp</h2><p></p><a id="waGo">Open WhatsApp</a>'
+      + '<button class="quiet" id="waCopy">Copy the message</button><button class="quiet" id="waNo">Cancel</button></div>';
+    d.querySelector('p').textContent = w.text;
+    d.querySelector('#waGo').href = w.app;
+    d.querySelector('#waGo').onclick = function () { setTimeout(closeSheet, 600); };
+    d.querySelector('#waCopy').onclick = function () {
+      var b = this;
+      (navigator.clipboard ? navigator.clipboard.writeText(w.text) : Promise.reject()).then(function () { b.textContent = 'Copied: paste it in WhatsApp'; }, function () { b.textContent = 'Couldn\'t copy: press and hold the message to copy it'; });
+    };
+    d.querySelector('#waNo').onclick = closeSheet;
+    d.onclick = function (e) { if (e.target === d) closeSheet(); };
+    document.body.appendChild(d);
+    d.querySelector('#waGo').focus();
+  }
+  window.addEventListener('message', function (e) {
+    var host = ''; try { host = new URL(e.origin).hostname; } catch (x) { return; }
+    if (!/(^|\.)googleusercontent\.com$/.test(host) && host !== 'script.google.com') return;
+    var m = e.data || {};
+    if (m.trident === 'hello' && e.source) e.source.postMessage({ trident: 'launcher' }, e.origin);
+    else if (m.trident === 'whatsapp') { var w = waUrl(m.url); if (w) sheet(w); }
+  });
 
   var saved = clean(get());
   if (saved) open(saved); else setup('');
