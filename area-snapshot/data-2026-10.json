@@ -1,0 +1,1431 @@
+{
+ "NG4 4": {
+  "sales_all": 341,
+  "houses": 220,
+  "new_builds": 48,
+  "flats": 25,
+  "median_house": 260000,
+  "T": [
+   37,
+   175000
+  ],
+  "S": [
+   90,
+   235000
+  ],
+  "D": [
+   93,
+   325000
+  ],
+  "share_under_150k": 2,
+  "share_under_200k": 19,
+  "cheapest_streets": [
+   [
+    "Phoenix Avenue",
+    4,
+    159000
+   ],
+   [
+    "Clifton Grove",
+    4,
+    170250
+   ],
+   [
+    "Queens Avenue",
+    3,
+    172000
+   ],
+   [
+    "Wollaton Avenue",
+    4,
+    183500
+   ],
+   [
+    "Chesterfield Avenue",
+    4,
+    196750
+   ],
+   [
+    "Perlethorpe Avenue",
+    6,
+    206500
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Orchard Rise",
+    3,
+    370000
+   ],
+   [
+    "Willow Lane",
+    5,
+    412000
+   ],
+   [
+    "Blackthorn Close",
+    3,
+    480000
+   ],
+   [
+    "Spring Lane",
+    6,
+    552500
+   ]
+  ],
+  "wards": [
+   [
+    "Phoenix",
+    65
+   ],
+   [
+    "Gedling",
+    29
+   ],
+   [
+    "Cavendish",
+    4
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    100
+   ]
+  ]
+ },
+ "NG4 3": {
+  "sales_all": 298,
+  "houses": 229,
+  "new_builds": 0,
+  "flats": 29,
+  "median_house": 240000,
+  "T": [
+   37,
+   177500
+  ],
+  "S": [
+   112,
+   236500
+  ],
+  "D": [
+   80,
+   285000
+  ],
+  "share_under_150k": 5,
+  "share_under_200k": 22,
+  "cheapest_streets": [
+   [
+    "Marhill Road",
+    3,
+    165000
+   ],
+   [
+    "Allwood Drive",
+    5,
+    190000
+   ],
+   [
+    "Priory Road",
+    3,
+    192000
+   ],
+   [
+    "Cavendish Road",
+    8,
+    192500
+   ],
+   [
+    "Acacia Crescent",
+    4,
+    201000
+   ],
+   [
+    "Buxton Avenue",
+    5,
+    205000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Burton Road",
+    6,
+    322500
+   ],
+   [
+    "Doveridge Avenue",
+    4,
+    327500
+   ],
+   [
+    "Brooklands Drive",
+    6,
+    340000
+   ],
+   [
+    "Main Road",
+    6,
+    422500
+   ]
+  ],
+  "wards": [
+   [
+    "Gedling",
+    53
+   ],
+   [
+    "Netherfield",
+    15
+   ],
+   [
+    "Carlton",
+    14
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    100
+   ]
+  ]
+ },
+ "NG4 2": {
+  "sales_all": 351,
+  "houses": 220,
+  "new_builds": 33,
+  "flats": 17,
+  "median_house": 197250,
+  "T": [
+   116,
+   169375
+  ],
+  "S": [
+   65,
+   210000
+  ],
+  "D": [
+   39,
+   352500
+  ],
+  "share_under_150k": 16,
+  "share_under_200k": 52,
+  "cheapest_streets": [
+   [
+    "Lily Avenue",
+    3,
+    130000
+   ],
+   [
+    "Deabill Street",
+    4,
+    134000
+   ],
+   [
+    "Wallet Street",
+    3,
+    139000
+   ],
+   [
+    "Carnarvon Street",
+    4,
+    145000
+   ],
+   [
+    "Arthur Street",
+    5,
+    145000
+   ],
+   [
+    "Curzon Street",
+    6,
+    145000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Linden Grove",
+    8,
+    323500
+   ],
+   [
+    "Crosslands Meadow",
+    3,
+    375000
+   ],
+   [
+    "Swan Meadow",
+    4,
+    422500
+   ],
+   [
+    "Conisbrough Avenue",
+    3,
+    440000
+   ]
+  ],
+  "wards": [
+   [
+    "Netherfield",
+    53
+   ],
+   [
+    "Colwick",
+    45
+   ],
+   [
+    "Trent Valley",
+    1
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    99
+   ]
+  ]
+ },
+ "NG4 1": {
+  "sales_all": 352,
+  "houses": 263,
+  "new_builds": 0,
+  "flats": 39,
+  "median_house": 240000,
+  "T": [
+   42,
+   180000
+  ],
+  "S": [
+   116,
+   221250
+  ],
+  "D": [
+   105,
+   288000
+  ],
+  "share_under_150k": 5,
+  "share_under_200k": 27,
+  "cheapest_streets": [
+   [
+    "Whimsey Park",
+    3,
+    115000
+   ],
+   [
+    "Gladstone Street",
+    3,
+    165000
+   ],
+   [
+    "Worth Street",
+    4,
+    172750
+   ],
+   [
+    "Chesterfield Street",
+    4,
+    175000
+   ],
+   [
+    "Radcliffe Gardens",
+    4,
+    191000
+   ],
+   [
+    "Curzon Avenue",
+    3,
+    195000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Hillview Road",
+    4,
+    320250
+   ],
+   [
+    "Birch Avenue",
+    3,
+    322000
+   ],
+   [
+    "Onchan Drive",
+    3,
+    338000
+   ],
+   [
+    "Broadway East",
+    3,
+    340000
+   ]
+  ],
+  "wards": [
+   [
+    "Carlton",
+    54
+   ],
+   [
+    "Carlton Hill",
+    40
+   ],
+   [
+    "Cavendish",
+    5
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    100
+   ]
+  ]
+ },
+ "NG3 6": {
+  "sales_all": 310,
+  "houses": 248,
+  "new_builds": 0,
+  "flats": 39,
+  "median_house": 273375,
+  "T": [
+   34,
+   180000
+  ],
+  "S": [
+   89,
+   270000
+  ],
+  "D": [
+   125,
+   300000
+  ],
+  "share_under_150k": 4,
+  "share_under_200k": 17,
+  "cheapest_streets": [
+   [
+    "Bramble Drive",
+    9,
+    160000
+   ],
+   [
+    "Burgass Road",
+    5,
+    163000
+   ],
+   [
+    "Woodhedge Drive",
+    3,
+    180000
+   ],
+   [
+    "Corsham Gardens",
+    6,
+    183750
+   ],
+   [
+    "Claygate",
+    3,
+    187000
+   ],
+   [
+    "Florence Road",
+    3,
+    195000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Hazel Grove",
+    3,
+    368000
+   ],
+   [
+    "College Road",
+    3,
+    460000
+   ],
+   [
+    "Morley Road",
+    3,
+    475000
+   ],
+   [
+    "Westdale Lane",
+    5,
+    565000
+   ]
+  ],
+  "wards": [
+   [
+    "Porchester",
+    87
+   ],
+   [
+    "Carlton Hill",
+    9
+   ],
+   [
+    "Phoenix",
+    4
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    100
+   ]
+  ]
+ },
+ "NG3 5": {
+  "sales_all": 346,
+  "houses": 216,
+  "new_builds": 3,
+  "flats": 81,
+  "median_house": 295000,
+  "T": [
+   62,
+   203250
+  ],
+  "S": [
+   62,
+   280000
+  ],
+  "D": [
+   92,
+   420000
+  ],
+  "share_under_150k": 2,
+  "share_under_200k": 19,
+  "cheapest_streets": [
+   [
+    "Shires Drive",
+    3,
+    152000
+   ],
+   [
+    "Querneby Road",
+    9,
+    175000
+   ],
+   [
+    "Staples Street",
+    3,
+    180000
+   ],
+   [
+    "Eaton Street",
+    4,
+    183750
+   ],
+   [
+    "Woodborough Road",
+    5,
+    190000
+   ],
+   [
+    "Ransom Road",
+    5,
+    194000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Cyprus Road",
+    3,
+    540500
+   ],
+   [
+    "Mapperley Plains",
+    7,
+    580000
+   ],
+   [
+    "Arlington Drive",
+    3,
+    701000
+   ],
+   [
+    "Lucknow Drive",
+    3,
+    811000
+   ]
+  ],
+  "wards": [
+   [
+    "Mapperley",
+    37
+   ],
+   [
+    "Plains",
+    32
+   ],
+   [
+    "Porchester",
+    19
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    63
+   ],
+   [
+    "Nottingham",
+    37
+   ]
+  ]
+ },
+ "NG5 9": {
+  "sales_all": 185,
+  "houses": 143,
+  "new_builds": 0,
+  "flats": 8,
+  "median_house": 185000,
+  "T": [
+   65,
+   170000
+  ],
+  "S": [
+   57,
+   190000
+  ],
+  "D": [
+   21,
+   247500
+  ],
+  "share_under_150k": 9,
+  "share_under_200k": 64,
+  "cheapest_streets": [
+   [
+    "Bradwell Drive",
+    3,
+    117500
+   ],
+   [
+    "Thompson Gardens",
+    3,
+    154000
+   ],
+   [
+    "Quantock Close",
+    3,
+    155000
+   ],
+   [
+    "Lambeth Road",
+    3,
+    165000
+   ],
+   [
+    "Ridgeway Walk",
+    6,
+    165000
+   ],
+   [
+    "Whitcombe Gardens",
+    3,
+    168000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Sidlaw Rise",
+    3,
+    230000
+   ],
+   [
+    "Beauclerk Drive",
+    4,
+    241000
+   ],
+   [
+    "Syke Road",
+    3,
+    260000
+   ],
+   [
+    "Grampian Drive",
+    3,
+    280000
+   ]
+  ],
+  "wards": [
+   [
+    "Bestwood",
+    39
+   ],
+   [
+    "Bulwell Forest",
+    33
+   ],
+   [
+    "Bestwood St Albans",
+    28
+   ]
+  ],
+  "district": [
+   [
+    "Nottingham",
+    72
+   ],
+   [
+    "Gedling",
+    28
+   ]
+  ]
+ },
+ "NG5 8": {
+  "sales_all": 364,
+  "houses": 319,
+  "new_builds": 0,
+  "flats": 10,
+  "median_house": 237500,
+  "T": [
+   72,
+   185500
+  ],
+  "S": [
+   122,
+   223000
+  ],
+  "D": [
+   125,
+   325000
+  ],
+  "share_under_150k": 2,
+  "share_under_200k": 26,
+  "cheapest_streets": [
+   [
+    "Bestwood Lodge Drive",
+    6,
+    172500
+   ],
+   [
+    "Crawford Rise",
+    5,
+    176500
+   ],
+   [
+    "Gleneagles Drive",
+    14,
+    181500
+   ],
+   [
+    "Howbeck Road",
+    3,
+    182000
+   ],
+   [
+    "Ballantrae Close",
+    3,
+    186000
+   ],
+   [
+    "Spinningdale",
+    7,
+    190000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Kempton Drive",
+    4,
+    332500
+   ],
+   [
+    "Richmond Gardens",
+    4,
+    369000
+   ],
+   [
+    "Mitford Drive",
+    3,
+    405000
+   ],
+   [
+    "Ellington Road",
+    5,
+    420000
+   ]
+  ],
+  "wards": [
+   [
+    "Coppice",
+    52
+   ],
+   [
+    "Redhill",
+    43
+   ],
+   [
+    "Plains",
+    5
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    100
+   ]
+  ]
+ },
+ "NG5 7": {
+  "sales_all": 237,
+  "houses": 173,
+  "new_builds": 0,
+  "flats": 23,
+  "median_house": 230000,
+  "T": [
+   43,
+   188700
+  ],
+  "S": [
+   84,
+   225000
+  ],
+  "D": [
+   46,
+   269000
+  ],
+  "share_under_150k": 6,
+  "share_under_200k": 34,
+  "cheapest_streets": [
+   [
+    "High Street",
+    3,
+    153000
+   ],
+   [
+    "Coppice Gate",
+    4,
+    167500
+   ],
+   [
+    "High Street Avenue",
+    5,
+    175000
+   ],
+   [
+    "West Street",
+    4,
+    176500
+   ],
+   [
+    "Cavendish Street",
+    4,
+    184350
+   ],
+   [
+    "Woodside Drive",
+    3,
+    193000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Clarborough Drive",
+    6,
+    270500
+   ],
+   [
+    "Cross Street",
+    8,
+    271500
+   ],
+   [
+    "Coppice Road",
+    16,
+    277500
+   ],
+   [
+    "Thales Drive",
+    4,
+    342500
+   ]
+  ],
+  "wards": [
+   [
+    "Plains",
+    33
+   ],
+   [
+    "Ernehale",
+    29
+   ],
+   [
+    "Daybrook",
+    20
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    99
+   ]
+  ]
+ },
+ "NG5 6": {
+  "sales_all": 311,
+  "houses": 235,
+  "new_builds": 0,
+  "flats": 31,
+  "median_house": 226000,
+  "T": [
+   66,
+   181000
+  ],
+  "S": [
+   104,
+   221500
+  ],
+  "D": [
+   65,
+   320000
+  ],
+  "share_under_150k": 6,
+  "share_under_200k": 31,
+  "cheapest_streets": [
+   [
+    "Longmead Drive",
+    4,
+    151150
+   ],
+   [
+    "Northwood Crescent",
+    4,
+    156250
+   ],
+   [
+    "Rosecroft Drive",
+    7,
+    160000
+   ],
+   [
+    "Edwin Street",
+    6,
+    167500
+   ],
+   [
+    "Holkham Close",
+    4,
+    178500
+   ],
+   [
+    "Charnwood Lane",
+    4,
+    182000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Arnot Hill Road",
+    3,
+    285000
+   ],
+   [
+    "Greendale Road",
+    3,
+    287500
+   ],
+   [
+    "Aylesham Avenue",
+    4,
+    295000
+   ],
+   [
+    "Sandfield Road",
+    12,
+    370000
+   ]
+  ],
+  "wards": [
+   [
+    "Daybrook",
+    48
+   ],
+   [
+    "Ernehale",
+    39
+   ],
+   [
+    "Plains",
+    13
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    100
+   ]
+  ]
+ },
+ "NG5 5": {
+  "sales_all": 393,
+  "houses": 269,
+  "new_builds": 5,
+  "flats": 39,
+  "median_house": 210000,
+  "T": [
+   78,
+   185500
+  ],
+  "S": [
+   113,
+   195000
+  ],
+  "D": [
+   78,
+   270000
+  ],
+  "share_under_150k": 8,
+  "share_under_200k": 43,
+  "cheapest_streets": [
+   [
+    "Raymede Drive",
+    3,
+    140000
+   ],
+   [
+    "Barent Walk",
+    4,
+    141250
+   ],
+   [
+    "Leybourne Drive",
+    5,
+    146500
+   ],
+   [
+    "Gainsford Crescent",
+    9,
+    160000
+   ],
+   [
+    "Andover Road",
+    6,
+    166000
+   ],
+   [
+    "Lechlade Road",
+    3,
+    173000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Brownlow Drive",
+    12,
+    280000
+   ],
+   [
+    "Rise Park Road",
+    4,
+    282500
+   ],
+   [
+    "Dunvegan Drive",
+    9,
+    295000
+   ],
+   [
+    "Ornsay Close",
+    4,
+    298750
+   ]
+  ],
+  "wards": [
+   [
+    "Bestwood",
+    51
+   ],
+   [
+    "Bulwell Forest",
+    49
+   ]
+  ],
+  "district": [
+   [
+    "Nottingham",
+    100
+   ]
+  ]
+ },
+ "NG5 4": {
+  "sales_all": 242,
+  "houses": 198,
+  "new_builds": 1,
+  "flats": 19,
+  "median_house": 306340,
+  "T": [
+   22,
+   245000
+  ],
+  "S": [
+   64,
+   266000
+  ],
+  "D": [
+   112,
+   361500
+  ],
+  "share_under_150k": 1,
+  "share_under_200k": 6,
+  "cheapest_streets": [
+   [
+    "Hood Street",
+    3,
+    170000
+   ],
+   [
+    "Dornoch Avenue",
+    11,
+    223500
+   ],
+   [
+    "Fairbank Crescent",
+    7,
+    232000
+   ],
+   [
+    "Winchester Street",
+    5,
+    255000
+   ],
+   [
+    "Penarth Rise",
+    6,
+    262750
+   ],
+   [
+    "Sherwood Vale",
+    5,
+    270000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Whernside Road",
+    4,
+    435500
+   ],
+   [
+    "Grange Road",
+    4,
+    443750
+   ],
+   [
+    "Elmswood Gardens",
+    3,
+    485000
+   ],
+   [
+    "Woodthorpe Avenue",
+    4,
+    637500
+   ]
+  ],
+  "wards": [
+   [
+    "Woodthorpe",
+    63
+   ],
+   [
+    "Plains",
+    21
+   ],
+   [
+    "Sherwood",
+    16
+   ]
+  ],
+  "district": [
+   [
+    "Gedling",
+    84
+   ],
+   [
+    "Nottingham",
+    16
+   ]
+  ]
+ },
+ "NG5 3": {
+  "sales_all": 129,
+  "houses": 90,
+  "new_builds": 0,
+  "flats": 27,
+  "median_house": 248750,
+  "T": [
+   16,
+   185000
+  ],
+  "S": [
+   48,
+   233750
+  ],
+  "D": [
+   26,
+   385000
+  ],
+  "share_under_150k": 4,
+  "share_under_200k": 21,
+  "cheapest_streets": [
+   [
+    "Brookdale Court",
+    4,
+    150000
+   ],
+   [
+    "Danethorpe Vale",
+    5,
+    188000
+   ],
+   [
+    "Perry Road",
+    5,
+    206000
+   ],
+   [
+    "Valley Road",
+    3,
+    207500
+   ],
+   [
+    "Costock Avenue",
+    6,
+    235000
+   ],
+   [
+    "Weaving Gardens",
+    4,
+    312500
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Larwood Grove",
+    4,
+    373750
+   ],
+   [
+    "Mossdale Road",
+    3,
+    430000
+   ],
+   [
+    "Ribblesdale Road",
+    6,
+    434250
+   ],
+   [
+    "Mansfield Road",
+    3,
+    500000
+   ]
+  ],
+  "wards": [
+   [
+    "Sherwood",
+    59
+   ],
+   [
+    "Woodthorpe",
+    4
+   ]
+  ],
+  "district": [
+   [
+    "Nottingham",
+    59
+   ],
+   [
+    "Gedling",
+    4
+   ]
+  ]
+ },
+ "NG5 2": {
+  "sales_all": 195,
+  "houses": 132,
+  "new_builds": 0,
+  "flats": 27,
+  "median_house": 240000,
+  "T": [
+   68,
+   212000
+  ],
+  "S": [
+   58,
+   292500
+  ],
+  "D": [
+   6,
+   388500
+  ],
+  "share_under_150k": 3,
+  "share_under_200k": 25,
+  "cheapest_streets": [
+   [
+    "Loscoe Road",
+    4,
+    171000
+   ],
+   [
+    "Melrose Street",
+    3,
+    180000
+   ],
+   [
+    "Wentworth Road",
+    3,
+    180000
+   ],
+   [
+    "Haydn Road",
+    8,
+    193500
+   ],
+   [
+    "Crossley Street",
+    3,
+    195000
+   ],
+   [
+    "Drayton Street",
+    4,
+    197000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Percival Road",
+    8,
+    311000
+   ],
+   [
+    "Milner Road",
+    3,
+    355000
+   ],
+   [
+    "Bingham Road",
+    3,
+    385000
+   ],
+   [
+    "Hartington Road",
+    3,
+    430000
+   ]
+  ],
+  "wards": [
+   [
+    "Sherwood",
+    80
+   ],
+   [
+    "Mapperley",
+    6
+   ]
+  ],
+  "district": [
+   [
+    "Nottingham",
+    86
+   ]
+  ]
+ },
+ "NG5 1": {
+  "sales_all": 255,
+  "houses": 176,
+  "new_builds": 0,
+  "flats": 40,
+  "median_house": 225000,
+  "T": [
+   56,
+   200000
+  ],
+  "S": [
+   91,
+   225000
+  ],
+  "D": [
+   29,
+   265000
+  ],
+  "share_under_150k": 6,
+  "share_under_200k": 31,
+  "cheapest_streets": [
+   [
+    "Heathfield Road",
+    7,
+    159500
+   ],
+   [
+    "Salcombe Road",
+    7,
+    180000
+   ],
+   [
+    "Alexandra Street",
+    3,
+    195000
+   ],
+   [
+    "Harmston Rise",
+    4,
+    195000
+   ],
+   [
+    "Fenton Road",
+    3,
+    196000
+   ],
+   [
+    "Sarah Avenue",
+    3,
+    200000
+   ]
+  ],
+  "dearest_streets": [
+   [
+    "Wimbledon Road",
+    5,
+    265000
+   ],
+   [
+    "Retford Road",
+    3,
+    285000
+   ],
+   [
+    "Valmont Road",
+    3,
+    287500
+   ],
+   [
+    "Mayo Road",
+    3,
+    300000
+   ]
+  ],
+  "wards": [
+   [
+    "Berridge",
+    70
+   ],
+   [
+    "Basford",
+    25
+   ],
+   [
+    "Sherwood",
+    5
+   ]
+  ],
+  "district": [
+   [
+    "Nottingham",
+    100
+   ]
+  ]
+ }
+}
