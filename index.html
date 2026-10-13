@@ -228,7 +228,7 @@
     <nav class="nav" aria-label="Main">
       <a href="#strategies">Investors</a>
       <a href="#how">How it works</a>
-      <a href="#example">Example deal</a>
+      <a href="sample-deal/">Sample deal pack</a>
       <a href="#deal-check">Free deal check</a>
       <a href="#about">About</a>
       <a href="#sell">Sell a property</a>
@@ -299,7 +299,7 @@
         <div class="step"><h3>Data analysis</h3><p>We track every listing in our patch for price drops, long time on the market and chain-free sales, to spot motivated sellers early.</p></div>
         <div class="step"><h3>Negotiation</h3><p>We speak to agents and vendors directly to agree a genuine discount, and only take on deals where the numbers still work.</p></div>
         <div class="step"><h3>Due diligence</h3><p>End values come from recent sold prices nearby. Every deal gets a builder's refurb quote and a full cost breakdown.</p></div>
-        <div class="step"><h3>Deal pack</h3><p>The deal goes to our investor group first, with a full pack. A £1,000 reservation (refunded if the deal falls through for reasons outside your control) takes it off the market; the £5,000 balance is due on exchange. No VAT, nothing from sellers.</p></div>
+        <div class="step"><h3>Deal pack</h3><p>The deal goes first to investors whose brief it fits, with a full pack. A £1,000 reservation (refunded if the deal falls through for reasons outside your control) takes it off the market; the £5,000 balance is due on exchange. No VAT, nothing from sellers.</p></div>
       </div>
     </div>
   </section>
@@ -311,6 +311,7 @@
         <h2>What a Trident deal looks like</h2>
         <p class="lede">Every deal we send includes a breakdown like this one, plus the sold comparables behind the end value, a floorplan and the refurb quote.</p>
         <p class="lede">Profit is shown after every cost an investor actually pays: stamp duty, legal fees, our sourcing fee, holding costs and selling costs.</p>
+        <p class="lede">Want the full version? <a href="sample-deal/" data-cta="example-sample">See a complete sample pack</a>, with comparables, the refurb budget, flip and BRRR cases and stress tests.</p>
         <div><a class="btn btn-dark" href="#join" data-cta="example">Get deals like this</a></div>
       </div>
       <div class="sheet" role="region" aria-label="Example flip appraisal">
@@ -369,7 +370,7 @@
         <ul class="creds">
           <li><b>ICO registered</b><span>ZC223627</span></li>
           <li><b>Property Redress Scheme</b><span>Member PRS060259</span></li>
-          <li><b>Anti-money laundering</b><span>HMRC supervised</span></li>
+          <li><b>Anti-money laundering</b><span>HMRC registration applied for</span></li>
           <li><b>Professional indemnity</b><span>Fully insured</span></li>
         </ul>
       </div>
@@ -379,13 +380,14 @@
   <section class="join" id="join">
     <div class="wrap">
       <div class="copy">
-        <span class="eyebrow">Investor WhatsApp group</span>
-        <h2>Get deals before anyone else</h2>
-        <p>New deals go to our investor WhatsApp group first. Tell us what you're looking for and you'll get the link straight away.</p>
+        <span class="eyebrow">Investor list</span>
+        <h2>Get deals matched to what you buy</h2>
+        <p>Tell me what you buy and I'll only send the deals that fit. I'll call you personally within 24 hours of signing up.</p>
         <ul>
-          <li>Purchase price, refurb, end value and profit in every post</li>
-          <li>Full deal pack on request</li>
-          <li>No obligation. Leave any time.</li>
+          <li>Price, refurb, end value and profit after every cost on every deal</li>
+          <li>A full deal pack on request, <a href="sample-deal/" data-cta="join-sample" style="color:#fff">like this sample</a></li>
+          <li>The monthly <a href="area-snapshot/" data-cta="join-snapshot" style="color:#fff">area snapshot</a> of sold prices</li>
+          <li>No obligation. Ask to come off the list any time.</li>
         </ul>
               </div>
       <div class="signup" id="signup">
@@ -393,7 +395,7 @@
         <form id="join-form" action="https://docs.google.com/forms/d/e/1FAIpQLSeNWYK0MImg9yibmczs9jKRdMTMSLeTGTR6sQmM5qCVyDrOBw/formResponse" method="POST" target="gform_sink" novalidate>
           <div class="field"><label for="f-name">Full name</label><input id="f-name" name="entry.607198457" autocomplete="name" required></div>
           <div class="row2">
-            <div class="field"><label for="f-mobile">Mobile (for WhatsApp)</label><input id="f-mobile" name="entry.1265290433" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()\-]{10,18}" placeholder="07700 900123" required></div>
+            <div class="field"><label for="f-mobile">Mobile</label><input id="f-mobile" name="entry.1265290433" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()\-]{10,18}" placeholder="07700 900123" required></div>
             <div class="field"><label for="f-email">Email</label><input id="f-email" name="entry.1144745886" type="email" autocomplete="email" required></div>
           </div>
           <fieldset class="field" data-required="strategy"><legend>What are you looking for?</legend>
@@ -413,8 +415,8 @@
         </form>
         <div class="done" id="join-done" hidden tabindex="-1">
           <h3>You're on the list</h3>
-          <p>Tap below to join the Trident investor WhatsApp group. We've also emailed you the link.</p>
-          <a class="btn btn-wa" href="https://chat.whatsapp.com/FaBXYtgNrA5HddAgFOB30Q" target="_blank" rel="noopener">Join the WhatsApp group</a>
+          <p>I'll be in touch personally within 24 hours to hear what you're looking for. While you wait, here's how a deal pack looks.</p>
+          <a class="btn btn-primary" href="sample-deal/" data-cta="signed-up">See the sample deal pack</a>
         </div>
       </div>
     </div>
@@ -506,12 +508,13 @@ posthog.register({ src: window.tridentSrc });
   if (sink) sink.addEventListener('load', function () { if (sent) { posthog.capture('investor_signup'); sent = false; } });
   var wa = document.getElementById('wa-check');
   if (wa) wa.addEventListener('click', function () { posthog.capture('deal_check_click'); });
-  /* 13/10: which buttons people tap, whether they start the form, and the
-     WhatsApp group button after signing up. Counts only, no personal data. */
+  /* 13/10: which buttons people tap, whether they start the form, and taps
+     through to the sample pack and area snapshot. Counts only, no personal data. */
   document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href="#join"], a[href="#sell"], .btn-wa');
+    var a = e.target.closest && e.target.closest('a[href="#join"], a[href="#sell"], a[href^="sample-deal/"], a[href^="area-snapshot/"]');
     if (!a) return;
-    if (a.classList.contains('btn-wa')) { posthog.capture('whatsapp_group_click'); return; }
+    var h = a.getAttribute('href');
+    if (h.indexOf('#') !== 0) { posthog.capture('page_link_click', { to: h.replace('/', ''), where: a.getAttribute('data-cta') || 'nav' }); return; }
     posthog.capture(a.getAttribute('href') === '#join' ? 'join_click' : 'sell_click', { where: a.getAttribute('data-cta') || 'other' });
   });
   var started = false;
