@@ -71,6 +71,7 @@
   .nav .btn { padding: 10px 18px; color: var(--white); }
   @media (max-width: 760px) { .nav a:not(.btn) { display: none; } .top img { height: 42px; } }
 
+  .hero-note { margin-top: 14px; font-size: .9rem; color: #CFE3DC; max-width: 52ch; }
   /* hero */
   .hero { background: var(--green); color: var(--white); padding-block: clamp(64px, 10vw, 120px); position: relative; overflow: hidden; }
   .hero::after { content: ""; position: absolute; right: -120px; top: -60px; width: 520px; height: 520px; border-radius: 50%;
@@ -231,7 +232,7 @@
       <a href="#deal-check">Free deal check</a>
       <a href="#about">About</a>
       <a href="#sell">Sell a property</a>
-      <a class="btn btn-primary" href="#join">Join investor list</a>
+      <a class="btn btn-primary" href="#join" data-cta="nav">Get matched deals</a>
     </nav>
   </div>
 </header>
@@ -243,9 +244,10 @@
       <h1>Data-driven property sourcing</h1>
       <p>We find below-market-value houses across Nottinghamshire and Derbyshire, check every number against real sold prices, and package them for hands-off investors.</p>
       <div class="ctas">
-        <a class="btn btn-primary" href="#join">Join investor list</a>
-        <a class="btn btn-ghost" href="#sell">Sell a property</a>
+        <a class="btn btn-primary" href="#join" data-cta="hero">Get matched deals</a>
+        <a class="btn btn-ghost" href="#sell" data-cta="hero-sell">Sell a property</a>
       </div>
+      <p class="hero-note">Two-minute sign-up. Tell me what you buy and you only get deals that fit. No obligation.</p>
     </div>
   </section>
 
@@ -309,7 +311,7 @@
         <h2>What a Trident deal looks like</h2>
         <p class="lede">Every deal we send includes a breakdown like this one, plus the sold comparables behind the end value, a floorplan and the refurb quote.</p>
         <p class="lede">Profit is shown after every cost an investor actually pays: stamp duty, legal fees, our sourcing fee, holding costs and selling costs.</p>
-        <div><a class="btn btn-dark" href="#join">Get deals like this</a></div>
+        <div><a class="btn btn-dark" href="#join" data-cta="example">Get deals like this</a></div>
       </div>
       <div class="sheet" role="region" aria-label="Example flip appraisal">
         <header><b>3-bed semi · Derby</b><span>Fix &amp; flip</span></header>
@@ -504,6 +506,16 @@ posthog.register({ src: window.tridentSrc });
   if (sink) sink.addEventListener('load', function () { if (sent) { posthog.capture('investor_signup'); sent = false; } });
   var wa = document.getElementById('wa-check');
   if (wa) wa.addEventListener('click', function () { posthog.capture('deal_check_click'); });
+  /* 13/10: which buttons people tap, whether they start the form, and the
+     WhatsApp group button after signing up. Counts only, no personal data. */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href="#join"], a[href="#sell"], .btn-wa');
+    if (!a) return;
+    if (a.classList.contains('btn-wa')) { posthog.capture('whatsapp_group_click'); return; }
+    posthog.capture(a.getAttribute('href') === '#join' ? 'join_click' : 'sell_click', { where: a.getAttribute('data-cta') || 'other' });
+  });
+  var started = false;
+  if (f) f.addEventListener('focusin', function () { if (!started) { started = true; posthog.capture('signup_form_started'); } });
 })();
 
 /* Track record: public deal log (no addresses or investors), read from a
