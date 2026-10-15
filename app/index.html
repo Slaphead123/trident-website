@@ -17,20 +17,22 @@
      Your private app link is kept only on this phone (localStorage), never
      on this website. Add ?reset to the address to forget it. -->
 <style>
+  /* 15/10: set-up screen only - the fast app is written into this page, so
+     bare button/p/h1 rules here reached it (the bridging switch went square). */
   :root{--brand:#1B4B45;--ink:#FFFFFF;--muted:#C9D3DF;--figure:#8FD4BD}
   html,body{margin:0;height:100%;background:var(--brand);color:var(--ink);font:400 16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
   iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#F3F6F5;padding-top:env(safe-area-inset-top);box-sizing:border-box}
   .setup{box-sizing:border-box;min-height:100%;max-width:520px;margin:0 auto;padding:calc(env(safe-area-inset-top) + 40px) 16px 32px;display:flex;flex-direction:column;gap:16px}
   .setup img{width:56px;height:56px}
-  h1{margin:0;font-size:26px;line-height:1.15}
-  p{margin:0;color:var(--muted)}
-  label{font-weight:600}
-  textarea{width:100%;box-sizing:border-box;min-height:96px;padding:12px;border-radius:8px;border:0;font:15px/1.4 ui-monospace,Menlo,monospace;color:#17221F}
-  textarea:focus-visible,button:focus-visible{outline:3px solid var(--figure);outline-offset:2px}
-  button{min-height:50px;border:0;border-radius:8px;background:var(--figure);color:#0E1A18;font:700 16px system-ui,sans-serif;cursor:pointer}
+  .setup h1{margin:0;font-size:26px;line-height:1.15}
+  .setup p{margin:0;color:var(--muted)}
+  .setup label{font-weight:600}
+  .setup textarea{width:100%;box-sizing:border-box;min-height:96px;padding:12px;border-radius:8px;border:0;font:15px/1.4 ui-monospace,Menlo,monospace;color:#17221F}
+  .setup textarea:focus-visible,.setup button:focus-visible{outline:3px solid var(--figure);outline-offset:2px}
+  .setup button{min-height:50px;border:0;border-radius:8px;background:var(--figure);color:#0E1A18;font:700 16px system-ui,sans-serif;cursor:pointer}
   .err{color:#FFD1C7;font-weight:600}
-  ol{margin:0;padding-left:20px;color:var(--muted)}
-  li{margin-bottom:4px}
+  .setup ol{margin:0;padding-left:20px;color:var(--muted)}
+  .setup li{margin-bottom:4px}
 </style>
 </head>
 <body>
