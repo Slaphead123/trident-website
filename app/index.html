@@ -31,17 +31,11 @@
   .err{color:#FFD1C7;font-weight:600}
   ol{margin:0;padding-left:20px;color:var(--muted)}
   li{margin-bottom:4px}
-  .sheet{position:fixed;inset:0;z-index:10;background:rgba(14,26,24,.55);display:flex;align-items:flex-end;justify-content:center}
-  .sheet .box{width:100%;max-width:520px;box-sizing:border-box;background:#FFFFFF;color:#17221F;border-radius:14px 14px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px}
-  .sheet h2{margin:0;font-size:17px}
-  .sheet p{color:#55625E;font-size:14px;max-height:30vh;overflow:auto;white-space:pre-wrap}
-  .sheet a,.sheet button{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:8px;font:700 16px system-ui,sans-serif;text-decoration:none}
-  .sheet a{background:#1B4B45;color:#FFFFFF}
-  .sheet .quiet{background:#FFFFFF;color:#1B4B45;border:1.5px solid #DCE3E0}
 </style>
 </head>
 <body>
 <div id="root"></div>
+<script src="share.js"></script>
 <script>
 (function () {
   var KEY = 'trident.appLink';
@@ -79,122 +73,41 @@
       var link = clean(document.getElementById('link').value);
       if (!link) return setup('That doesn\'t look like your app link. It starts with https://script.google.com/macros/s/ and has k= in it.');
       if (!set(link)) return setup('This browser won\'t keep the link (private browsing?). Open this page in a normal tab and try again.');
-      open(link);
+      firstFetch(link);
     };
   }
 
-  // WhatsApp hand-off (05/10). Links opened from inside the app land in an
-  // in-app browser on iPhone, which can't open WhatsApp. The app asks this
-  // page instead, and the tap on "Open WhatsApp" here opens it directly.
-  // Only WhatsApp links from the Apps Script app are accepted.
-  function waUrl(raw) {
-    var u; try { u = new URL(String(raw)); } catch (e) { return null; }
-    if (u.protocol === 'https:' && (u.hostname === 'wa.me' || u.hostname === 'api.whatsapp.com')) {
-      var phone = u.hostname === 'wa.me' ? u.pathname.replace(/\D/g, '') : (u.searchParams.get('phone') || '').replace(/\D/g, '');
-      var q = 'text=' + encodeURIComponent(u.searchParams.get('text') || '') + (phone ? '&phone=' + phone : '');
-      return { app: 'whatsapp://send?' + q, web: u.toString(), text: u.searchParams.get('text') || '' };
-    }
-    return null;
+  // 15/10 (Dave: fast like an iPhone app). The app's own page is kept on
+  // this phone and opened at once; it then talks to Google only for data.
+  // First time (or after ?reset): fetched once from your app link. If that
+  // ever fails, the app opens the old way, inside a frame.
+  var SHELL = 'trident.shell';
+  function shell() { try { var s = JSON.parse(localStorage.getItem(SHELL) || 'null'); return s && s.html && s.version ? s : null; } catch (e) { return null; } }
+  function start(link, s) {
+    var prelude = '<script>window.__TRIDENT_API=' + JSON.stringify(link) + ';window.__TRIDENT_SHELL_VERSION=' + JSON.stringify(s.version) + ';<\/script>'
+      + '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
+      + '<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">'
+      + '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Trident">'
+      + '<meta name="theme-color" content="#1B4B45"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png">'
+      + '<script src="share.js"><\/script>';
+    var html = String(s.html).replace(/<base target="_top">/i, '').replace(/<head>/i, '<head>' + prelude);
+    document.open(); document.write(html); document.close();
   }
-  function closeSheet() { var el = document.getElementById('wa'); if (el) el.remove(); }
-  function sheet(w) {
-    closeSheet();
-    var d = document.createElement('div'); d.className = 'sheet'; d.id = 'wa';
-    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', 'Send on WhatsApp');
-    d.innerHTML = '<div class="box"><h2>Send on WhatsApp</h2><p></p><a id="waGo">Open WhatsApp</a>'
-      + '<button class="quiet" id="waCopy">Copy the message</button><button class="quiet" id="waNo">Cancel</button></div>';
-    d.querySelector('p').textContent = w.text;
-    d.querySelector('#waGo').href = w.app;
-    d.querySelector('#waGo').onclick = function () { setTimeout(closeSheet, 600); };
-    d.querySelector('#waCopy').onclick = function () {
-      var b = this;
-      (navigator.clipboard ? navigator.clipboard.writeText(w.text) : Promise.reject()).then(function () { b.textContent = 'Copied: paste it in WhatsApp'; }, function () { b.textContent = 'Couldn\'t copy: press and hold the message to copy it'; });
-    };
-    d.querySelector('#waNo').onclick = closeSheet;
-    d.onclick = function (e) { if (e.target === d) closeSheet(); };
-    document.body.appendChild(d);
-    d.querySelector('#waGo').focus();
+  function firstFetch(link) {
+    root.innerHTML = '<main class="setup"><img src="icon-192.png" alt="" style="border-radius:12px"><h1>Opening Trident</h1><p>Setting up the fast version on this phone. Only the first time.</p></main>';
+    var u = new URL(link); u.searchParams.set('action', 'api'); u.searchParams.set('fn', 'appShell');
+    fetch(u.toString(), { redirect: 'follow' }).then(function (r) { return r.json(); }).then(function (o) {
+      if (!o || !o.ok || !o.data || !o.data.html) throw new Error((o && o.error) || 'no page');
+      try { localStorage.setItem(SHELL, JSON.stringify(o.data)); } catch (e) { /* too big to keep: still open it */ }
+      start(link, o.data);
+    }).catch(function () { open(link); });
   }
-  // The deal pack PDF itself (05/10): a tap here opens the phone's share
-  // sheet with the file attached, so it goes into WhatsApp as a document.
-  function fileSheet(m) {
-    closeSheet();
-    var bytes = atob(m.b64), arr = new Uint8Array(bytes.length);
-    for (var i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
-    var blob = new Blob([arr], { type: 'application/pdf' }), file = null, name = String(m.name).replace(/[\\/:*?"<>|]/g, '_');
-    try { file = new File([blob], name, { type: 'application/pdf' }); } catch (e) { file = null; }
-    var canShare = !!(file && navigator.canShare && navigator.canShare({ files: [file] }));
-    var save = m.mode === 'save';   // 05/10: "Save preview PDF" saves; "Send on WhatsApp" shares
-    var text = String(m.text || '');
-    var d = document.createElement('div'); d.className = 'sheet'; d.id = 'wa';
-    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', save ? 'Save the deal pack' : 'Send the deal pack');
-    var shareBtn = canShare ? '<button id="shGo"' + (save ? ' class="quiet">Share instead' : ' style="background:#1B4B45;color:#FFFFFF">Share the PDF') + '</button>' : '';
-    var saveLink = '<a id="shSave"' + (save || !canShare ? '' : ' class="quiet"') + '>Save the PDF</a>';
-    d.innerHTML = '<div class="box"><h2>' + (save ? 'Save the deal pack' : 'Send the deal pack') + '</h2><p></p>'
-      + (save ? saveLink + shareBtn : shareBtn + saveLink)
-      + (text && !save ? '<button class="quiet" id="waCopy">Copy the message</button>' : '') + '<button class="quiet" id="waNo">Cancel</button></div>';
-    d.querySelector('p').textContent = save ? name + '\n\nOn a phone, the PDF opens: use its share button and pick Save to Files.'
-      : (canShare ? 'Pick WhatsApp, then the person or group. ' : 'Save it, then attach it in WhatsApp. ') + name + (text ? '\n\n' + text : '');
-    if (canShare) d.querySelector('#shGo').onclick = function () {
-      navigator.share({ files: [file] }).then(closeSheet, function (e) { if (e && e.name !== 'AbortError') d.querySelector('p').textContent = 'Couldn\'t open sharing: ' + (e.message || e); });
-    };
-    var a = d.querySelector('#shSave'); a.href = URL.createObjectURL(blob); a.download = name; a.addEventListener('click', function () { setTimeout(closeSheet, 300); });
-    var cp = d.querySelector('#waCopy');
-    if (cp) cp.onclick = function () { var b = this; (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { b.textContent = 'Copied: paste it with the PDF'; }, function () { b.textContent = 'Couldn\'t copy'; }); };
-    d.querySelector('#waNo').onclick = closeSheet;
-    d.onclick = function (e) { if (e.target === d) closeSheet(); };
-    document.body.appendChild(d);
-    (save ? d.querySelector('#shSave') : (d.querySelector('#shGo') || d.querySelector('#shSave'))).focus();
-  }
-
-  // Post images for Facebook (Social tab, 05/10): the share sheet with the
-  // PNGs attached, plus a button to copy the post text first (Facebook
-  // ignores text passed through the share sheet).
-  function imageSheet(m) {
-    closeSheet();
-    var files = [];
-    try {
-      m.files.slice(0, 10).forEach(function (f) {
-        if (!/\.png$/i.test(String(f.name || '')) || typeof f.b64 !== 'string' || f.b64.length > 15000000) return;
-        var bytes = atob(f.b64), arr = new Uint8Array(bytes.length);
-        for (var i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
-        files.push(new File([arr], String(f.name).replace(/[\\/:*?"<>|]/g, '_'), { type: 'image/png' }));
-      });
-    } catch (e) { files = []; }
-    if (!files.length) return;
-    var canShare = !!(navigator.canShare && navigator.canShare({ files: files }));
-    var text = String(m.text || '');
-    var d = document.createElement('div'); d.className = 'sheet'; d.id = 'wa';
-    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', 'Post to Facebook');
-    d.innerHTML = '<div class="box"><h2>Post to Facebook</h2><p></p>'
-      + (text ? '<button id="imCopy" style="background:#1B4B45;color:#FFFFFF">1. Copy the post text</button>' : '')
-      + (canShare ? '<button id="imGo"' + (text ? ' class="quiet"' : ' style="background:#1B4B45;color:#FFFFFF"') + '>' + (text ? '2. ' : '') + 'Share ' + (files.length > 1 ? 'the ' + files.length + ' images' : 'the image') + '</button>' : '<a id="imSave">Save ' + (files.length > 1 ? 'the images' : 'the image') + '</a>')
-      + '<button class="quiet" id="waNo">Cancel</button></div>';
-    d.querySelector('p').textContent = canShare ? 'Copy the text, then share and pick Facebook. Paste the text into the post before you publish.' : 'Save, then add ' + (files.length > 1 ? 'them' : 'it') + ' to your post in Facebook.';
-    var cp = d.querySelector('#imCopy');
-    if (cp) cp.onclick = function () { var b = this; (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { b.textContent = 'Copied'; }, function () { b.textContent = 'Couldn\'t copy: use Copy text in the app'; }); };
-    if (canShare) d.querySelector('#imGo').onclick = function () {
-      navigator.share({ files: files }).then(closeSheet, function (e) { if (e && e.name !== 'AbortError') d.querySelector('p').textContent = 'Couldn\'t open sharing: ' + (e.message || e); });
-    };
-    else { var a = d.querySelector('#imSave'); a.onclick = function () { files.forEach(function (f) { var l = document.createElement('a'); l.href = URL.createObjectURL(f); l.download = f.name; document.body.appendChild(l); l.click(); l.remove(); }); closeSheet(); }; a.href = '#'; }
-    d.querySelector('#waNo').onclick = closeSheet;
-    d.onclick = function (e) { if (e.target === d) closeSheet(); };
-    document.body.appendChild(d);
-    (d.querySelector('#imCopy') || d.querySelector('#imGo') || d.querySelector('#imSave')).focus();
-  }
-
-  window.addEventListener('message', function (e) {
-    var host = ''; try { host = new URL(e.origin).hostname; } catch (x) { return; }
-    if (!/(^|\.)googleusercontent\.com$/.test(host) && host !== 'script.google.com') return;
-    var m = e.data || {};
-    if (m.trident === 'hello' && e.source) e.source.postMessage({ trident: 'launcher' }, e.origin);
-    else if (m.trident === 'whatsapp') { var w = waUrl(m.url); if (w) sheet(w); }
-    else if (m.trident === 'shareimages' && Array.isArray(m.files)) imageSheet(m);
-    else if (m.trident === 'sharefile' && typeof m.b64 === 'string' && /\.pdf$/i.test(String(m.name || '')) && m.b64.length < 30000000) fileSheet(m);
-  });
-
+  if (/[?&]reset\b/.test(location.search)) { try { localStorage.removeItem(SHELL); } catch (e) {} }
+  if ('serviceWorker' in navigator) try { navigator.serviceWorker.register('sw.js'); } catch (e) { /* fine without */ }
   var saved = clean(get());
-  if (saved) open(saved); else setup('');
+  if (!saved) setup('');
+  else if (/[?&]classic\b/.test(location.search)) open(saved);
+  else { var s0 = shell(); if (s0) start(saved, s0); else firstFetch(saved); }
 })();
 </script>
 </body>
