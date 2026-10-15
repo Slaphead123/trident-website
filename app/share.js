@@ -5,6 +5,11 @@
   var st = document.createElement('style');
   st.textContent = '.tl-sheet{position:fixed;inset:0;z-index:1000;background:rgba(14,26,24,.55);display:flex;align-items:flex-end;justify-content:center}\n.tl-sheet .box{width:100%;max-width:520px;box-sizing:border-box;background:#FFFFFF;color:#17221F;border-radius:14px 14px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px}\n.tl-sheet h2{margin:0;font-size:17px}\n.tl-sheet p{color:#55625E;font-size:14px;max-height:30vh;overflow:auto;white-space:pre-wrap}\n.tl-sheet a,.tl-sheet button{display:flex;align-items:center;justify-content:center;min-height:50px;border-radius:8px;font:700 16px system-ui,sans-serif;text-decoration:none}\n.tl-sheet a{background:#1B4B45;color:#FFFFFF}\n.tl-sheet .tl-quiet{background:#FFFFFF;color:#1B4B45;border:1.5px solid #DCE3E0}';
   (document.head || document.documentElement).appendChild(st);
+  // 15/10 (Dave: tapping the calculator's minus quickly zoomed the page):
+  // taps on buttons and links never double-tap zoom; pinch zoom still works.
+  var tz = document.createElement('style');
+  tz.textContent = 'html{-webkit-text-size-adjust:100%}button,a,input,select,label,[role="button"],.btn,.step,.stepper button{touch-action:manipulation}';
+  (document.head || document.documentElement).appendChild(tz);
   // WhatsApp hand-off (05/10). Links opened from inside the app land in an
   // in-app browser on iPhone, which can't open WhatsApp. The app asks this
   // page instead, and the tap on "Open WhatsApp" here opens it directly.
