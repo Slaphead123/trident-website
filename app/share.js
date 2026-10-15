@@ -77,26 +77,28 @@
     var files = [];
     try {
       m.files.slice(0, 10).forEach(function (f) {
-        if (!/\.png$/i.test(String(f.name || '')) || typeof f.b64 !== 'string' || f.b64.length > 15000000) return;
+        if (!/\.(png|jpe?g)$/i.test(String(f.name || '')) || typeof f.b64 !== 'string' || f.b64.length > 15000000) return;
         var bytes = atob(f.b64), arr = new Uint8Array(bytes.length);
         for (var i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
-        files.push(new File([arr], String(f.name).replace(/[\\/:*?"<>|]/g, '_'), { type: 'image/png' }));
+        files.push(new File([arr], String(f.name).replace(/[\\/:*?"<>|]/g, '_'), { type: /\.png$/i.test(f.name) ? 'image/png' : 'image/jpeg' }));
       });
     } catch (e) { files = []; }
     if (!files.length) return;
     var canShare = !!(navigator.canShare && navigator.canShare({ files: files }));
     var text = String(m.text || '');
+    // 15/10: the WhatsApp group post with a photo uses this sheet too.
+    var app = m.app === 'WhatsApp' ? 'WhatsApp' : 'Facebook';
     var d = document.createElement('div'); d.className = 'tl-sheet'; d.id = 'wa';
-    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', 'Post to Facebook');
-    d.innerHTML = '<div class="box"><h2>Post to Facebook</h2><p></p>'
+    d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-label', 'Post to ' + app);
+    d.innerHTML = '<div class="box"><h2>' + (app === 'WhatsApp' ? 'Post to the WhatsApp group' : 'Post to Facebook') + '</h2><p></p>'
       + (text ? '<button id="imCopy" style="background:#1B4B45;color:#FFFFFF">1. Copy the post text</button>' : '')
       + (canShare ? '<button id="imGo"' + (text ? ' class="tl-quiet"' : ' style="background:#1B4B45;color:#FFFFFF"') + '>' + (text ? '2. ' : '') + 'Share ' + (files.length > 1 ? 'the ' + files.length + ' images' : 'the image') + '</button>' : '<a id="imSave">Save ' + (files.length > 1 ? 'the images' : 'the image') + '</a>')
       + '<button class="tl-quiet" id="waNo">Cancel</button></div>';
-    d.querySelector('p').textContent = canShare ? 'Copy the text, then share and pick Facebook. Paste the text into the post before you publish.' : 'Save, then add ' + (files.length > 1 ? 'them' : 'it') + ' to your post in Facebook.';
+    d.querySelector('p').textContent = canShare ? (app === 'WhatsApp' ? 'Copy the text, then share and pick WhatsApp, then the group. If the text isn\'t there as the caption, paste it before you send.' : 'Copy the text, then share and pick Facebook. Paste the text into the post before you publish.') : 'Save, then add ' + (files.length > 1 ? 'them' : 'it') + ' to your post in Facebook.';
     var cp = d.querySelector('#imCopy');
     if (cp) cp.onclick = function () { var b = this; (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { b.textContent = 'Copied'; }, function () { b.textContent = 'Couldn\'t copy: use Copy text in the app'; }); };
     if (canShare) d.querySelector('#imGo').onclick = function () {
-      navigator.share({ files: files }).then(closeSheet, function (e) { if (e && e.name !== 'AbortError') d.querySelector('p').textContent = 'Couldn\'t open sharing: ' + (e.message || e); });
+      navigator.share(app === 'WhatsApp' && text ? { files: files, text: text } : { files: files }).then(closeSheet, function (e) { if (e && e.name !== 'AbortError') d.querySelector('p').textContent = 'Couldn\'t open sharing: ' + (e.message || e); });
     };
     else { var a = d.querySelector('#imSave'); a.onclick = function () { files.forEach(function (f) { var l = document.createElement('a'); l.href = URL.createObjectURL(f); l.download = f.name; document.body.appendChild(l); l.click(); l.remove(); }); closeSheet(); }; a.href = '#'; }
     d.querySelector('#waNo').onclick = closeSheet;
