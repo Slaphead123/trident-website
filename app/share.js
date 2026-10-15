@@ -8,7 +8,12 @@
   // 15/10 (Dave: tapping the calculator's minus quickly zoomed the page):
   // taps on buttons and links never double-tap zoom; pinch zoom still works.
   var tz = document.createElement('style');
-  tz.textContent = 'html{-webkit-text-size-adjust:100%}button,a,input,select,label,[role="button"],.btn,.step,.stepper button{touch-action:manipulation}';
+  tz.textContent = 'html{-webkit-text-size-adjust:100%}button,a,input,select,label,[role="button"],.btn,.step,.stepper button{touch-action:manipulation}'
+    // 15/10 (Dave: the Back button sat up in the clock and battery): page
+    // headers start below the phone's status bar, like the Today header does.
+    + '.bar{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}'
+    + '.hero{padding-top:calc(env(safe-area-inset-top,0px) + 18px)}'
+    + '.gwrap .back,.gwrap .star{top:calc(env(safe-area-inset-top,0px) + 12px)}';
   (document.head || document.documentElement).appendChild(tz);
   // WhatsApp hand-off (05/10). Links opened from inside the app land in an
   // in-app browser on iPhone, which can't open WhatsApp. The app asks this
