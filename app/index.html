@@ -85,8 +85,19 @@
   // ever fails, the app opens the old way, inside a frame.
   var SHELL = 'trident.shell';
   function shell() { try { var s = JSON.parse(localStorage.getItem(SHELL) || 'null'); return s && s.html && s.version ? s : null; } catch (e) { return null; } }
+  // 16/10: the status bar's height, measured here (where the phone reports
+  // it) and handed to the app page as --tl-sat.
+  function statusBar() {
+    try {
+      var d = document.createElement('div');
+      d.style.cssText = 'position:fixed;top:0;left:0;width:1px;visibility:hidden;height:env(safe-area-inset-top,0px)';
+      document.body.appendChild(d); var h = d.getBoundingClientRect().height; d.remove();
+      return Math.round(h) || 0;
+    } catch (e) { return 0; }
+  }
   function start(link, s) {
-    var prelude = '<script>window.__TRIDENT_API=' + JSON.stringify(link) + ';window.__TRIDENT_SHELL_VERSION=' + JSON.stringify(s.version) + ';<\/script>'
+    var sat = statusBar();
+    var prelude = '<style>:root{--tl-sat:' + sat + 'px}</style><script>window.__TRIDENT_API=' + JSON.stringify(link) + ';window.__TRIDENT_SHELL_VERSION=' + JSON.stringify(s.version) + ';<\/script>'
       + '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
       + '<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">'
       + '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Trident">'
