@@ -97,7 +97,10 @@
   }
   function start(link, s) {
     var sat = statusBar();
-    var prelude = '<style>:root{--tl-sat:' + sat + 'px}</style><script>window.__TRIDENT_API=' + JSON.stringify(link) + ';window.__TRIDENT_SHELL_VERSION=' + JSON.stringify(s.version) + ';<\/script>'
+    // 16/10: an alert tapped opens /app/?lead=<id>: start the app on that lead.
+    var lm = /[?&]lead=([A-Za-z0-9_-]+)/.exec(location.search), vm = /[?&]view=([a-z]+)/.exec(location.search);
+    var route = lm ? { view: 'lead', id: lm[1], from: 'today' } : vm ? { view: vm[1] } : null;
+    var prelude = '<style>:root{--tl-sat:' + sat + 'px}</style><script>window.__TRIDENT_ROUTE=' + JSON.stringify(route) + ';window.__TRIDENT_API=' + JSON.stringify(link) + ';window.__TRIDENT_SHELL_VERSION=' + JSON.stringify(s.version) + ';<\/script>'
       + '<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">'
       + '<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">'
       + '<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Trident">'
