@@ -11,9 +11,14 @@
   tz.textContent = 'html{-webkit-text-size-adjust:100%}button,a,input,select,label,[role="button"],.btn,.step,.stepper button{touch-action:manipulation}'
     // 15/10 (Dave: the Back button sat up in the clock and battery): page
     // headers start below the phone's status bar, like the Today header does.
-    + '.bar{padding-top:calc(env(safe-area-inset-top,0px) + 10px)}'
-    + '.hero{padding-top:calc(env(safe-area-inset-top,0px) + 18px)}'
-    + '.gwrap .back,.gwrap .star{top:calc(env(safe-area-inset-top,0px) + 12px)}';
+    // 16/10 (Dave: "Back arrow too high, can't click it"): this style sits
+    // at the top of the page, so the app's own later rules (.gwrap .back
+    // {top:12px}) won. "html body" makes these win, and --tl-sat is the
+    // status-bar height the launcher measured before writing the app in
+    // (in case the phone reports 0 after the page is rewritten).
+    + 'html body .bar{padding-top:calc(max(var(--tl-sat,0px),env(safe-area-inset-top,0px)) + 10px)}'
+    + 'html body .hero{padding-top:calc(max(var(--tl-sat,0px),env(safe-area-inset-top,0px)) + 18px)}'
+    + 'html body .gwrap .back,html body .gwrap .star{top:calc(max(var(--tl-sat,0px),env(safe-area-inset-top,0px)) + 12px)}';
   (document.head || document.documentElement).appendChild(tz);
   // WhatsApp hand-off (05/10). Links opened from inside the app land in an
   // in-app browser on iPhone, which can't open WhatsApp. The app asks this
