@@ -22,7 +22,7 @@
     <nav aria-label="Main">
       <a href="../sample-deal/">Sample deal pack</a>
       <a href="../area-snapshot/">Area snapshot</a>
-      <a class="btn btn-primary" href="../?src=sample#join" data-cta="sample-nav">Send your buy box</a>
+      <a class="btn btn-primary" href="../buy-box/?src=sample" data-cta="sample-nav">Send your buy box</a>
     </nav>
   </div>
 </header>
@@ -148,7 +148,7 @@
     <p class="risk">Returns aren't guaranteed. Property values can fall. Do your own research.</p>
   </div>
   <div class="btns">
-    <a class="btn btn-primary" href="../?src=sample#join" data-cta="sample">Send your buy box</a>
+    <a class="btn btn-primary" href="../buy-box/?src=sample" data-cta="sample">Send your buy box</a>
     <a class="btn" style="border-color:var(--green);color:var(--green)" href="../area-snapshot/" data-cta="sample-snapshot">See the area snapshot</a>
   </div>
 </div></section>
@@ -166,7 +166,7 @@ posthog.init('phc_ygkkBLddQZdeb4ZPB33LeewcipHcL5bQSPHJghhtKnr3', { api_host: 'ht
 posthog.register({ src: 'sample-page' });
 document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a[data-cta]');
-  if (a) posthog.capture(a.getAttribute('href').indexOf('#join') >= 0 ? 'join_click' : 'page_link_click', { where: a.getAttribute('data-cta') });
+  if (a) posthog.capture(a.getAttribute('href').indexOf('buy-box') >= 0 ? 'join_click' : 'page_link_click', { where: a.getAttribute('data-cta') });
 });
 </script>
 </body>

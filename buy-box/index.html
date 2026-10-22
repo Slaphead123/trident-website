@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Send your buy box | Trident Property Sourcing</title>
+<meta name="description" content="Tell Trident Property Sourcing what you buy and I'll find it, working with local agents across Nottinghamshire and Derbyshire.">
+<meta property="og:title" content="Send your buy box to Trident Property Sourcing">
+<meta property="og:description" content="Tell me what you buy and I'll find it, working with local agents across Nottinghamshire and Derbyshire.">
+<meta property="og:image" content="https://www.tridentpropertysourcing.co.uk/img/logo.png">
+<meta property="og:url" content="https://www.tridentpropertysourcing.co.uk/buy-box/">
+<link rel="icon" type="image/png" href="../img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../css/page.css">
+<style>
+  /* sign-up form (posts to the Google Form behind the scenes) */
+  #join-form { display: grid; gap: 16px; }
+  .field { display: grid; gap: 6px; border: 0; padding: 0; margin: 0; min-width: 0; }
+  .field label, .field legend { font-size: .82rem; font-weight: 700; color: var(--navy); padding: 0; margin-bottom: 6px; }
+  .opt-tag { font-weight: 500; color: var(--muted); }
+  .hint { margin: -2px 0 8px; }
+  .field input[type=text], .field input:not([type]), .field input[type=tel], .field input[type=email] {
+    width: 100%; font: inherit; font-size: .95rem; padding: 11px 12px; border: 1.5px solid var(--line); border-radius: var(--radius); background: var(--white); color: var(--ink); }
+  .field input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-tint); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt { position: relative; cursor: pointer; }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .opt span { display: inline-block; padding: 8px 12px; border: 1.5px solid var(--line); border-radius: 999px; font-size: .85rem; font-weight: 600; color: var(--navy); transition: background .12s, border-color .12s; }
+  .opt input:checked + span { background: var(--green); border-color: var(--green); color: var(--white); }
+  .opt input:focus-visible + span { outline: 3px solid var(--teal); outline-offset: 2px; }
+  .consent { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; font-size: .8rem; color: var(--muted); cursor: pointer; }
+  .consent input { margin-top: 3px; accent-color: var(--green); width: 16px; height: 16px; }
+  .form-error { background: #FDEEE6; color: #A8431F; border-radius: var(--radius); padding: 10px 12px; font-size: .85rem; font-weight: 600; }
+  .submit { width: 100%; border: 0; cursor: pointer; font-family: inherit; font-size: 1rem; }
+  .submit[disabled] { opacity: .7; cursor: progress; }
+  .done { display: grid; gap: 12px; text-align: center; padding: 18px 6px; }
+  .done h3 { font-size: 1.3rem; }
+  .done p { color: var(--muted) !important; }
+  .btn-wa { background: #1FAF54; color: var(--white); }
+  .btn-wa:hover { background: #189446; }
+
+  [hidden] { display: none !important; }
+  .bb-page { background: var(--band); border-bottom: 0; }
+  .bb-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+  .bb-side { position: sticky; top: 96px; display: grid; gap: 14px; }
+  .bb-side ul { margin: 0; padding-left: 18px; display: grid; gap: 8px; color: var(--muted); font-size: .92rem; }
+  .bb-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(20px, 4vw, 36px); min-width: 0; }
+  #join-form { gap: 0; }
+  .step { display: grid; gap: 18px; padding-block: 26px; border-top: 1px solid var(--line); }
+  .step:first-child { padding-top: 0; border-top: 0; }
+  .step-head { display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: baseline; }
+  .step-head b { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: var(--white); font-size: .85rem; }
+  .step-head h2 { font-size: 1.15rem; }
+  .step-head p { grid-column: 2; font-size: .86rem; color: var(--muted); }
+  .field label, .field legend { font-size: .9rem; }
+  .opt span { font-size: .88rem; padding: 9px 14px; }
+  .hint { font-size: .82rem; color: var(--muted); margin: -2px 0 8px; }
+  .send { display: grid; gap: 16px; padding-top: 26px; border-top: 1px solid var(--line); }
+  .done { padding: 24px 6px; }
+  @media (max-width: 860px) { .bb-grid { grid-template-columns: 1fr; } .bb-side { position: static; } }
+  @media (max-width: 420px) { .row2 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a href="../" aria-label="Trident Property Sourcing home"><img src="../img/logo.png" alt="Trident Property Sourcing"></a>
+    <nav aria-label="Main">
+      <a href="../sample-deal/">Sample deal pack</a>
+      <a href="../area-snapshot/">Area snapshot</a>
+    </nav>
+  </div>
+</header>
+<main>
+<div class="head"><div class="wrap">
+  <h1>Send us your buy box</h1>
+  <p>Tell me exactly what you're looking for and I'll go out and find it, working with local agents across Nottinghamshire and Derbyshire.</p>
+</div></div>
+
+<section class="bb-page"><div class="wrap bb-grid">
+  <aside class="bb-side">
+    <h3>What happens next</h3>
+    <ul>
+      <li>I call you within 2 working days to go through your brief, funding and timescales.</li>
+      <li>You only hear about properties that fit your brief, nothing else.</li>
+      <li>Every deal comes with price, refurb, end value and profit after every cost, and a full deal pack on request, <a href="../sample-deal/">like this sample</a>.</li>
+      <li>No obligation. Ask me to delete your details at any time.</li>
+    </ul>
+  </aside>
+  <div class="bb-card">
+    <iframe name="gform_sink" id="gform_sink" title="Form submission" hidden></iframe>
+    <form id="join-form" action="https://docs.google.com/forms/d/e/1FAIpQLSeNWYK0MImg9yibmczs9jKRdMTMSLeTGTR6sQmM5qCVyDrOBw/formResponse" method="POST" target="gform_sink" novalidate>
+      <div class="step">
+        <div class="step-head"><b>1</b><h2>About you</h2></div>
+
+          <div class="field"><label for="f-name">Full name</label><input id="f-name" name="entry.607198457" autocomplete="name" required></div>
+          <div class="row2">
+            <div class="field"><label for="f-mobile">Mobile</label><input id="f-mobile" name="entry.1265290433" type="tel" autocomplete="tel" inputmode="tel" pattern="[+0-9 ()\-]{10,18}" placeholder="07700 900123" required></div>
+            <div class="field"><label for="f-email">Email</label><input id="f-email" name="entry.1144745886" type="email" autocomplete="email" required></div>
+          </div>
+      </div>
+      <div class="step">
+        <div class="step-head"><b>2</b><h2>What you buy</h2></div>
+          <fieldset class="field" data-required="strategy"><legend>What are you looking for?</legend>
+            <div class="opts"><label class="opt"><input type="checkbox" name="entry.1683800293" value="Flips (buy, refurbish, sell)" data-group="strategy"><span>Flips</span></label><label class="opt"><input type="checkbox" name="entry.1683800293" value="BRRR (buy, refurbish, refinance, rent)" data-group="strategy"><span>BRRR</span></label><label class="opt"><input type="checkbox" name="entry.1683800293" value="Buy-to-let (ready to rent)" data-group="strategy"><span>Buy-to-let</span></label></div></fieldset>
+          <fieldset class="field"><legend>Budget per deal (purchase + refurb)</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.919230414" value="Under £100k" required><span>Under £100k</span></label><label class="opt"><input type="radio" name="entry.919230414" value="£100k – £150k" ><span>£100k – £150k</span></label><label class="opt"><input type="radio" name="entry.919230414" value="£150k – £200k" ><span>£150k – £200k</span></label><label class="opt"><input type="radio" name="entry.919230414" value="£200k – £300k" ><span>£200k – £300k</span></label><label class="opt"><input type="radio" name="entry.919230414" value="£300k+" ><span>£300k+</span></label></div></fieldset>
+          <fieldset class="field"><legend>How would you fund it?</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.1057847358" value="Cash" required><span>Cash</span></label><label class="opt"><input type="radio" name="entry.1057847358" value="Bridging finance" ><span>Bridging finance</span></label><label class="opt"><input type="radio" name="entry.1057847358" value="Mortgage" ><span>Mortgage</span></label><label class="opt"><input type="radio" name="entry.1057847358" value="A mix" ><span>A mix</span></label></div></fieldset>
+          <fieldset class="field" data-required="areas"><legend>Which areas?</legend>
+            <div class="opts"><label class="opt"><input type="checkbox" name="entry.973325292" value="Nottinghamshire" data-group="areas"><span>Nottinghamshire</span></label><label class="opt"><input type="checkbox" name="entry.973325292" value="Derbyshire" data-group="areas"><span>Derbyshire</span></label><label class="opt"><input type="checkbox" name="entry.973325292" value="Anywhere in the East Midlands" data-group="areas"><span>Anywhere in the East Midlands</span></label></div></fieldset>
+          <fieldset class="field"><legend>Property deals done so far <span class="opt-tag">optional</span></legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.356470785" value="None yet - this would be my first"><span>None yet</span></label><label class="opt"><input type="radio" name="entry.356470785" value="1 – 3" ><span>1–3</span></label><label class="opt"><input type="radio" name="entry.356470785" value="4 – 10" ><span>4–10</span></label><label class="opt"><input type="radio" name="entry.356470785" value="More than 10" ><span>10+</span></label></div></fieldset>
+      </div>
+      <div class="step">
+        <div class="step-head"><b>3</b><h2>Your buy box</h2><p>All optional. Two minutes, and I'll only send you the deals that fit.</p></div>
+          <div class="field"><label for="f-towns">Any particular towns or postcodes?</label><input id="f-towns" name="entry.728401243" placeholder="For example: Arnold, Carlton, NG5"></div>
+          <fieldset class="field"><legend>What kind of property?</legend>
+            <div class="opts"><label class="opt"><input type="checkbox" name="entry.461938746" value="2-bed houses"><span>2-bed houses</span></label><label class="opt"><input type="checkbox" name="entry.461938746" value="3-bed houses"><span>3-bed houses</span></label><label class="opt"><input type="checkbox" name="entry.461938746" value="4-bed+ houses"><span>4-bed+ houses</span></label><label class="opt"><input type="checkbox" name="entry.461938746" value="Flats"><span>Flats</span></label><label class="opt"><input type="checkbox" name="entry.461938746" value="Bungalows"><span>Bungalows</span></label></div></fieldset>
+          <fieldset class="field"><legend>The lowest return you would accept</legend><p class="hint">Flips: profit as a % of what you put in. BRRR and buy-to-let: gross yield.</p>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.1294306536" value="10%"><span>10%</span></label><label class="opt"><input type="radio" name="entry.1294306536" value="15%"><span>15%</span></label><label class="opt"><input type="radio" name="entry.1294306536" value="20%"><span>20%</span></label><label class="opt"><input type="radio" name="entry.1294306536" value="25%+"><span>25%+</span></label><label class="opt"><input type="radio" name="entry.1294306536" value="It depends on the deal"><span>It depends on the deal</span></label></div></fieldset>
+          <fieldset class="field"><legend>How much work will you take on?</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.1653322760" value="Light: decorating, flooring, kitchen or bathroom"><span>Light: decorating, kitchen or bathroom</span></label><label class="opt"><input type="radio" name="entry.1653322760" value="Full refurbishment"><span>Full refurbishment</span></label><label class="opt"><input type="radio" name="entry.1653322760" value="Anything, including structural work"><span>Anything, including structural</span></label></div></fieldset>
+          <fieldset class="field"><legend>Once you have a deal pack, how quickly could you reserve?</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.1705696268" value="Within 48 hours"><span>Within 48 hours</span></label><label class="opt"><input type="radio" name="entry.1705696268" value="Within a week"><span>Within a week</span></label><label class="opt"><input type="radio" name="entry.1705696268" value="Within 2 weeks"><span>Within 2 weeks</span></label><label class="opt"><input type="radio" name="entry.1705696268" value="Longer"><span>Longer</span></label></div></fieldset>
+          <fieldset class="field"><legend>How many deals a year would you like?</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.1421148214" value="1"><span>1</span></label><label class="opt"><input type="radio" name="entry.1421148214" value="2 to 3"><span>2 to 3</span></label><label class="opt"><input type="radio" name="entry.1421148214" value="4 to 6"><span>4 to 6</span></label><label class="opt"><input type="radio" name="entry.1421148214" value="More than 6"><span>More than 6</span></label></div></fieldset>
+          <fieldset class="field"><legend>Do you have your own builder?</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.2082257353" value="Yes"><span>Yes</span></label><label class="opt"><input type="radio" name="entry.2082257353" value="No, please introduce one"><span>No, please introduce one</span></label></div></fieldset>
+          <fieldset class="field"><legend>Could you show proof of funds once a price is agreed?</legend>
+            <div class="opts"><label class="opt"><input type="radio" name="entry.1658891521" value="Yes"><span>Yes</span></label><label class="opt"><input type="radio" name="entry.1658891521" value="Not yet"><span>Not yet</span></label></div></fieldset>
+      </div>
+      <div class="send">
+          <input type="hidden" id="f-src" name="entry.422427125" value="Website"><input type="hidden" id="f-src-other" name="entry.422427125.other_option_response" value="" disabled>
+          <label class="consent"><input type="checkbox" id="f-consent" name="entry.1447452174" value="I'm happy for Trident Property Sourcing to contact me about properties that match my brief by phone, email or WhatsApp. I can ask to stop at any time." required><span>I'm happy for Trident Property Sourcing to contact me about properties that match my brief by phone, email or WhatsApp. I can ask to stop at any time.</span></label>
+          <p class="form-error" id="form-error" role="alert" hidden></p>
+          <button class="btn btn-primary submit" type="submit" id="join-submit">Send my buy box</button>
+              </div>
+    </form>
+    <div class="done" id="join-done" hidden tabindex="-1">
+      <h3>Thanks, I've got your buy box</h3>
+      <p>I'll call you within 2 working days to go through your brief, funding and timescales. While you wait, here's how a deal pack looks.</p>
+      <a class="btn btn-primary" href="../sample-deal/" data-cta="signed-up">See the sample deal pack</a>
+    </div>
+  </div>
+</div></section>
+</main>
+<script>
+(function () {
+  var form = document.getElementById('join-form'), sink = document.getElementById('gform_sink');
+  var err = document.getElementById('form-error'), btn = document.getElementById('join-submit'), done = document.getElementById('join-done');
+  var submitted = false;
+  function fail(msg, el) { err.textContent = msg; err.hidden = false; if (el) el.focus(); }
+  form.addEventListener('submit', function (e) {
+    err.hidden = true;
+    var fields = [['f-name', 'Please enter your name.'], ['f-mobile', 'Please enter a mobile number, e.g. 07700 900123.'], ['f-email', 'Please enter a valid email address.']];
+    for (var i = 0; i < fields.length; i++) { var el = document.getElementById(fields[i][0]); if (!el.checkValidity()) { e.preventDefault(); return fail(fields[i][1], el); } }
+    var groups = [['strategy', 'Choose what you\'re looking for.'], ['areas', 'Choose at least one area.']];
+    for (var g = 0; g < groups.length; g++) { if (!form.querySelector('input[data-group="' + groups[g][0] + '"]:checked')) { e.preventDefault(); return fail(groups[g][1], form.querySelector('input[data-group="' + groups[g][0] + '"]')); } }
+    var radioNames = [['entry.919230414', 'Choose a budget.'], ['entry.1057847358', 'Choose how you\'d fund it.']];
+    for (var r = 0; r < radioNames.length; r++) { if (!form.querySelector('input[name="' + radioNames[r][0] + '"]:checked')) { e.preventDefault(); return fail(radioNames[r][1], form.querySelector('input[name="' + radioNames[r][0] + '"]')); } }
+    if (!document.getElementById('f-consent').checked) { e.preventDefault(); return fail('Please tick the box to agree to be contacted.', document.getElementById('f-consent')); }
+    submitted = true; btn.disabled = true; btn.textContent = 'Sending…';
+  });
+  sink.addEventListener('load', function () {
+    if (!submitted) return;
+    form.hidden = true; done.hidden = false; done.focus();
+  });
+})();
+</script>
+<script>
+/* Where did this visitor come from? Links shared as ?src=fb | wa | partner | event
+   (or ?src=anything-else) set the sign-up form's "How did you hear about us?". */
+(function () {
+  var map = { fb: 'Facebook', facebook: 'Facebook', partner: 'Recommended by someone', ref: 'Recommended by someone', event: 'Property event / networking' };
+  var src = '';
+  try { src = (new URLSearchParams(location.search).get('src') || sessionStorage.getItem('src') || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 30); if (src) sessionStorage.setItem('src', src); } catch (e) {}
+  window.tridentSrc = src || 'direct';
+  var main = document.getElementById('f-src'), other = document.getElementById('f-src-other');
+  if (!main || !src) return;
+  if (map[src]) { main.value = map[src]; }
+  else { main.value = '__other_option__'; other.value = 'Website (' + src + ')'; other.disabled = false; }
+})();
+
+/* Anonymous visit counting: no cookies, no personal data (PostHog EU, memory-only). */
+!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+posthog.init('phc_ygkkBLddQZdeb4ZPB33LeewcipHcL5bQSPHJghhtKnr3', { api_host: 'https://eu.i.posthog.com', persistence: 'memory', disable_session_recording: true, autocapture: false, capture_pageview: true, person_profiles: 'never' });
+posthog.register({ src: window.tridentSrc });
+(function () {
+  var f = document.getElementById('join-form'), sink = document.getElementById('gform_sink'), sent = false;
+  if (f) f.addEventListener('submit', function () { setTimeout(function () { if (document.getElementById('join-submit').disabled) sent = true; }, 0); });
+  if (sink) sink.addEventListener('load', function () { if (sent) { posthog.capture('investor_signup'); sent = false; } });
+  var started = false;
+  if (f) f.addEventListener('focusin', function () { if (!started) { started = true; posthog.capture('signup_form_started'); } });
+})();
+
+</script>
+</body>
+</html>
